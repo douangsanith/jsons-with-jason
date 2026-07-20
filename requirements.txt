@@ -1,0 +1,18 @@
+# Core (Modules 0-2)
+anthropic>=0.40          # Claude API client
+python-dotenv>=1.0       # load API keys from a .env file
+jupyterlab>=4.0          # run the notebooks
+pandas>=2.0              # tabular legal data
+polars>=1.0             # fast DataFrames (Week 2 pandas->polars lesson)
+pyarrow>=15.0           # zero-copy pandas <-> polars conversion
+
+# Added in later modules (uncomment as you reach them):
+# --- M4 Snowflake ---
+# snowflake-connector-python>=3.0
+# --- M5 Backend ---
+# fastapi>=0.110
+# uvicorn>=0.29
+# httpx>=0.27             # test API calls from a notebook
+# --- Optional alternatives introduced for context ---
+# flask>=3.0
+# django>=5.0

@@ -1,0 +1,16 @@
+matter_id,client,practice_area,status,open_date,amount_billed,is_privileged,lead_attorney
+M-1001,Acme Corp,Contracts,Active,2026-01-12,18500.00,True,R. Nguyen
+M-1002,Brightline LLC,Litigation,Active,2025-11-03,42750.50,True,S. Patel
+M-1003,Cedar Holdings,M&A,Closed,2025-06-21,131200.00,True,R. Nguyen
+M-1004,Delta Foods,Employment,Active,2026-03-08,7300.00,False,J. Okafor
+M-1005,Evergreen Inc,Contracts,On Hold,2026-02-14,2450.00,False,S. Patel
+M-1006,Foster & Sons,Litigation,Active,2025-09-30,58900.75,True,J. Okafor
+M-1007,Granite Partners,M&A,Active,2026-04-02,96400.00,True,R. Nguyen
+M-1008,Harbor Freight Co,Employment,Closed,2025-08-19,15600.00,False,L. Romano
+M-1009,Ivory Systems,IP,Active,2026-05-11,33150.25,True,L. Romano
+M-1010,Juniper Media,Contracts,Active,2026-06-01,4900.00,False,S. Patel
+M-1011,Keystone Bank,Litigation,On Hold,2025-12-09,71200.00,True,J. Okafor
+M-1012,Lumen Robotics,IP,Active,2026-04-27,28750.00,True,L. Romano
+M-1013,Meridian Group,M&A,Active,2026-06-15,112500.00,True,R. Nguyen
+M-1014,Northwind Air,Employment,Active,2026-05-30,9100.00,False,J. Okafor
+M-1015,Oakley Retail,Contracts,Closed,2025-10-05,21300.00,False,S. Patel
