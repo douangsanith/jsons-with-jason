@@ -1,0 +1,9 @@
+item,category,unit_cost
+Latte,Espresso Drink,1.20
+Cappuccino,Espresso Drink,1.10
+Espresso,Espresso Drink,0.80
+Mocha,Espresso Drink,1.40
+Cold Brew,Cold,1.15
+Drip,Brewed,0.55
+Croissant,Food,1.30
+Muffin,Food,1.00

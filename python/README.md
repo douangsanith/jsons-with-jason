@@ -1,8 +1,9 @@
 # Foundations — Weeks 1–2 (Python) — for the Legal Innovation Team
 
 These weeks build the **data-focused fundamentals** the team needs before we wire matters into
-Claude and Snowflake. Every lesson ends with a small working artifact built on **legal-domain data**
-(matters, clients, billings).
+Claude and Snowflake. Every lesson ends with a small working artifact. Concepts are taught on
+relatable everyday data (a coffee shop's orders) and then tied back to **legal-domain data**
+(matters, clients, billings) — the *Matter Intelligence* capstone we're building toward.
 
 ## ⭐ Course structure — continuous weeks (not by topic)
 
@@ -42,12 +43,17 @@ python/
     W1D1_variables-and-data-types.ipynb
     W1D2_lists-dicts-loops.ipynb
     W1D3_functions.ipynb
-    W1D4_pandas-intro.ipynb
+    W1D4_numpy-intro.ipynb
   week2/
-    W2D1_pandas-to-polars.ipynb
+    W2D1_pandas-fundamentals.ipynb
+    W2D2_data-cleaning.ipynb
+    W2D3_groupby-and-joins.ipynb
+    W2D4_pandas-to-polars.ipynb
 ```
 
-Sample data lives in `../data/` (e.g. `matters.csv`) — synthetic only, never real client data.
+Sample data lives in `../data/` — synthetic only, never real client data. Two families:
+`matters.csv` (the legal capstone data) and the coffee-shop set used to *teach* Weeks 1D4–2
+(`coffee_orders.csv`, `coffee_orders_raw.csv`, `menu.csv`, `stores.csv`).
 
 ## Week 1 — Python foundations
 
@@ -56,23 +62,40 @@ Sample data lives in `../data/` (e.g. `matters.csv`) — synthetic only, never r
 | **Mon** | Variables & data types | variables, `str`/`int`/`float`/`bool`, f-strings | a matter summary line |
 | **Tue** | Lists, dicts & loops | lists, dictionaries, `for`, `if/elif/else` | a docket triage report |
 | **Thu** | Functions | `def`, parameters, `return`, defaults | a reusable matter-helpers module |
-| **Fri** | Intro to pandas | DataFrames, read CSV, select/filter/sort/`groupby` | a billing-summary-by-area report |
+| **Fri** | Intro to NumPy | arrays, vectorization, boolean masks, aggregations, axis/broadcasting | a coffee-sales stats report |
 
 **Design notes for the instructor**
 - Each notebook follows the course's Standard Lesson Format (title → objectives → why → setup →
   concept/demo → your turn → build artifact → recap → check → next → glossary).
 - **Core Path** works for complete non-coders; **`Go Deeper 🔧`** callouts stretch the technical folks.
-- Everything runs **offline with no API key** — these are pure Python/pandas lessons.
-- Day 4 deliberately frames pandas' select / filter / sort / group as the twins of SQL's
-  `SELECT` / `WHERE` / `ORDER BY` / `GROUP BY`, so the upcoming **SQL** track feels familiar.
+- Everything runs **offline with no API key** — these are pure Python/NumPy/pandas/Polars lessons.
+- **NumPy first (Day 4):** arrays and vectorization are the machinery every DataFrame is built on,
+  so Week 1 now ends with NumPy — "pandas is NumPy arrays with labels" is the bridge into Week 2.
 
-## Week 2 — in progress
+### 📊 Teaching pedagogy — relatable examples, legal application
+- From **W1D4 onward**, concepts are **taught on a relatable coffee-shop-orders dataset**
+  (`coffee_orders.csv`), then a short **`🔗 Your world`** cell in each notebook maps the exact same
+  move back to `matters.csv` (order price → `amount_billed`, item category → `practice_area`,
+  group-by-category → billing-by-practice-area). This keeps the *Matter Intelligence* capstone and
+  the SQL-twin priming intact while making the examples click for every participant.
+- **W1D1–D3 remain legal-themed** for now (pending a later reframing pass).
+- The **SQL-twin framing** (select/filter/sort/group = `SELECT`/`WHERE`/`ORDER BY`/`GROUP BY`) now
+  lives in **W2D1**, so the upcoming **SQL** track still feels familiar.
+
+## Week 2 — pandas deep-dive → Polars
 
 | Day | Session | Concepts | Ships |
 |---|---|---|---|
-| **Mon** | From pandas to Polars | Polars expression API, select/filter/sort/`group_by`, lazy vs eager, when to use which | the Week 1 billing report rebuilt in Polars (eager + lazy) |
+| **Mon** | Pandas fundamentals | DataFrames, read CSV, select/filter/sort/`groupby` (→ SQL twins) | a sales-summary-by-category report |
+| **Tue** | Cleaning & transforming | dtypes/`to_numeric`, missing data, `.str` text cleanup, duplicates, derived columns | a cleaned coffee-orders table |
+| **Thu** | Grouping, aggregation & joins | named `.agg`, multi-key groupby, `pivot_table`, `merge` (inner/left/right/outer) | a profit-margin-by-store report |
+| **Fri** | From pandas to Polars | Polars expression API, lazy vs eager, when to use which | the Day 1 sales report rebuilt in Polars (eager + lazy) |
 
-*Polars is taught as a direct companion to the Week 1 pandas lesson — same `matters.csv`, same four operations, faster engine. The honest "is Polars more powerful than pandas?" comparison is built into the notebook: yes on speed/scale (Rust + Arrow + multithreading + lazy execution), but pandas still wins on ecosystem maturity and is the right place to learn the concepts.*
+*Week 2 is a full pandas deep-dive taught on the coffee dataset, capped by Polars. Days 1–3 build the
+pandas toolkit (select/filter/group, cleaning, join-then-group); Day 4 swaps the engine. The honest
+"is Polars more powerful than pandas?" comparison is built into the finale: yes on speed/scale (Rust +
+Arrow + multithreading + lazy execution), but pandas still wins on ecosystem maturity and is the right
+place to learn the concepts.*
 
 ## What comes next (continuing the week count)
 
