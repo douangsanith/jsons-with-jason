@@ -15,7 +15,7 @@ Training/
     week2/                            ← Week 2 sessions (pandas deep-dive → Polars; SQL may begin next)
     week3/                            ← ... the week counter never restarts
   data/                               ← synthetic sample data (legal matters + a coffee-shop teaching set; no real client data)
-  notebooks/                          ← earlier standalone LLM lessons (L01, ...)
+  notebooks/                          ← LLM-track lessons: L00 (NumPy for embeddings) → L01 (first Claude call) → ...
 ```
 
 ## How the course is structured — continuous weeks
@@ -68,7 +68,7 @@ Cowork will produce the next notebook in `notebooks/`, following the same format
 - **M0 · Orientation** — what LLMs are, the toolkit, environment setup
 - **M1 · Python foundations** — variables, lists/dicts, functions, NumPy, then pandas + Polars *(Course Weeks 1–2)*
 - **M1b · SQL foundations** — `SELECT / WHERE / ORDER BY / GROUP BY / JOIN` on a matters table (SQLite fallback); the on-ramp to Snowflake *(current course week when taught — likely Week 2/3)*
-- **M2 · Building with Claude** — the messages API, prompting, structured output, evaluation *(Lesson 1 is here)*
+- **M2 · Building with Claude** — the messages API, prompting, structured output, evaluation *(Lesson 1 is here; `L00_numpy-for-embeddings` is the NumPy→embeddings on-ramp that precedes it)*
 - **M3 · Claude Code** — agentic coding to accelerate everything
 - **M4 · Data & Snowflake** — store and query legal data at scale; Cortex LLM functions
 - **M5 · Backend with FastAPI** — serve the tool as an API

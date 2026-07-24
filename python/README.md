@@ -103,6 +103,10 @@ place to learn the concepts.*
   against a matters table (with a local SQLite fallback so notebooks run offline). A first-class part of
   the course because SQL is required for Snowflake. It slots into **whatever course week it's taught**
   (likely Week 2/3) — **not** a separate "SQL Week 1."
+- **NumPy, Part 2 — vectors & embeddings** (`notebooks/L00_numpy-for-embeddings.ipynb`) — a second,
+  deeper NumPy lesson (reshape/stack, NaN-aware stats, `np.random`, sorting, and linear algebra →
+  **cosine similarity**). It's the on-ramp to embedding search, so it's taught right before the Claude
+  work rather than in the Week 1–2 pandas arc.
 - **Building with Claude** — feed a filtered DataFrame of matters into an LLM to summarize/classify
   (the *Matter Intelligence* capstone).
 
