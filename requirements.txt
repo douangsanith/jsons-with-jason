@@ -2,6 +2,7 @@
 anthropic>=0.40          # Claude API client
 python-dotenv>=1.0       # load API keys from a .env file
 jupyterlab>=4.0          # run the notebooks
+numpy>=2.0               # arrays & vectorization (Week 1 Day 4)
 pandas>=2.0              # tabular legal data
 polars>=1.0             # fast DataFrames (Week 2 pandas->polars lesson)
 pyarrow>=15.0           # zero-copy pandas <-> polars conversion

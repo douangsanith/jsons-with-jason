@@ -219,3 +219,11 @@ __marimo__/
 
 # macOS
 .DS_Store
+
+# Notebook-generated lesson artifacts (regenerated on run, not source)
+python/week1/coffee_stats_numpy.csv
+python/week2/coffee_orders_clean.csv
+python/week2/margin_by_store.csv
+python/week2/sales_summary_by_category.csv
+python/week2/sales_summary_by_category_polars.csv
+python/week*/billing_summary_by_area*.csv

@@ -11,10 +11,10 @@ Training/
   requirements.txt                    ← Python dependencies (grows over time)
   .env.example                        ← copy to .env and add your keys
   course/                             ← the course, organized WEEK-FIRST (continuous weeks, any topic)
-    week1/                            ← Week 1 sessions (currently Python foundations)
-    week2/                            ← Week 2 sessions (Polars; SQL may begin here or later)
+    week1/                            ← Week 1 sessions (Python foundations, ending in NumPy)
+    week2/                            ← Week 2 sessions (pandas deep-dive → Polars; SQL may begin next)
     week3/                            ← ... the week counter never restarts
-  data/                               ← synthetic legal sample data (no real client data)
+  data/                               ← synthetic sample data (legal matters + a coffee-shop teaching set; no real client data)
   notebooks/                          ← earlier standalone LLM lessons (L01, ...)
 ```
 
@@ -66,7 +66,7 @@ Cowork will produce the next notebook in `notebooks/`, following the same format
 *(Modules are topic areas; they're taught across the continuous week calendar above — a module can span several weeks, and a week can touch more than one module.)*
 
 - **M0 · Orientation** — what LLMs are, the toolkit, environment setup
-- **M1 · Python foundations** — variables, lists/dicts, functions, files, a little pandas + Polars *(Course Weeks 1–2)*
+- **M1 · Python foundations** — variables, lists/dicts, functions, NumPy, then pandas + Polars *(Course Weeks 1–2)*
 - **M1b · SQL foundations** — `SELECT / WHERE / ORDER BY / GROUP BY / JOIN` on a matters table (SQLite fallback); the on-ramp to Snowflake *(current course week when taught — likely Week 2/3)*
 - **M2 · Building with Claude** — the messages API, prompting, structured output, evaluation *(Lesson 1 is here)*
 - **M3 · Claude Code** — agentic coding to accelerate everything

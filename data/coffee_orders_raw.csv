@@ -1,0 +1,14 @@
+order_id,date,item,size,category,price,payment,store
+O-6001,2026-03-02,latte,M,Espresso Drink,$4.75,Card,Downtown
+O-6002,2026-03-02,LATTE,L,Espresso Drink,5.50,app,Uptown
+O-6003,2026-03-03,  Mocha ,S,Espresso Drink,$4.50,Cash,Downtown
+O-6004,2026-03-03,cold brew,M,Cold,4.65,Card,airport
+O-6005,2026-03-04,Drip,,Brewed,2.95,Card,Uptown
+O-6006,2026-03-04,Cappuccino,L,Espresso Drink,,Cash,Downtown
+O-6007,2026-03-05,muffin,,Food,$2.95,App,Airport
+O-6008,2026-03-05,Latte ,S,Espresso Drink,4.00,Card,Downtown
+O-6008,2026-03-05,Latte ,S,Espresso Drink,4.00,Card,Downtown
+O-6009,2026-03-06,ESPRESSO,M,Espresso Drink,$3.25,app,uptown
+O-6010,2026-03-06,Cold Brew,L,Cold,5.35,Card,Airport
+O-6011,2026-03-07,croissant,,Food,3.25,Cash,Downtown
+O-6012,2026-03-07,mocha,L,Espresso Drink,$5.95,Card,
