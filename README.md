@@ -12,8 +12,10 @@ Training/
   .env.example                        ← copy to .env and add your keys
   course/                             ← the course, organized WEEK-FIRST (continuous weeks, any topic)
     week1/                            ← Week 1 sessions (Python foundations, ending in NumPy)
-    week2/                            ← Week 2 sessions (pandas deep-dive → Polars; SQL may begin next)
-    week3/                            ← ... the week counter never restarts
+    week2/                            ← Week 2 sessions (pandas deep-dive → Polars)
+    week3/                            ← Week 3 sessions (SQL, run the Snowflake way: SELECT → GROUP BY → JOIN → SQL+Python)
+    week4/                            ← Week 4 sessions (Snowflake basics: build/load tables → window functions → Cortex)
+    …                                 ← the week counter never restarts (dbt begins Week 5)
   data/                               ← synthetic sample data (legal matters + a coffee-shop teaching set; no real client data)
   notebooks/                          ← LLM-track lessons: L00 (NumPy for embeddings) → L01 (first Claude call) → ...
 ```
@@ -29,8 +31,8 @@ of topic**.
 Sessions run in short **~30-minute blocks, Mon · Tue · Thu · Fri** (4 per week). Notebooks are named
 `W{week}D{day}_{topic}.ipynb` (day: Mon=1, Tue=2, Thu=3, Fri=4).
 
-> *Note:* the Week 1–2 Python notebooks currently sit under `python/week1/` and `python/week2/` and will
-> move into `course/week1/` and `course/week2/` — see `python/README.md`.
+> *Note:* all weeks now live under `course/` (`course/week1/` … `course/week4/`) — the Week 1–2 Python
+> notebooks moved out of `python/` into `course/`, so every week sits in one place. See `course/README.md`.
 
 ## Getting started (once)
 
@@ -67,10 +69,10 @@ Cowork will produce the next notebook in `notebooks/`, following the same format
 
 - **M0 · Orientation** — what LLMs are, the toolkit, environment setup
 - **M1 · Python foundations** — variables, lists/dicts, functions, NumPy, then pandas + Polars *(Course Weeks 1–2)*
-- **M1b · SQL foundations** — `SELECT / WHERE / ORDER BY / GROUP BY / JOIN` on a matters table (SQLite fallback); the on-ramp to Snowflake *(current course week when taught — likely Week 2/3)*
+- **M1b · SQL foundations** — `SELECT / WHERE / ORDER BY / GROUP BY / JOIN`, taught *the Snowflake way* against a `coffee_orders`/`matters` table with a **DuckDB** offline fallback *(Course Week 3)*
 - **M2 · Building with Claude** — the messages API, prompting, structured output, evaluation *(Lesson 1 is here; `L00_numpy-for-embeddings` is the NumPy→embeddings on-ramp that precedes it)*
 - **M3 · Claude Code** — agentic coding to accelerate everything
-- **M4 · Data & Snowflake** — store and query legal data at scale; Cortex LLM functions
+- **M4 · Data & Snowflake** — build/load tables, window functions, and Cortex LLM functions (summarize/classify in-warehouse) *(Course Week 4; dbt intro in Week 5)*
 - **M5 · Backend with FastAPI** — serve the tool as an API
 - **M6 · Web UI** — HTML/CSS/JS → React interface
 - **M7 · Integration & capstone** — assemble Matter Intelligence end-to-end
