@@ -1,0 +1,8 @@
+[
+  { "id": "M-1002", "client": "Brightline LLC", "area": "Litigation", "billed": 42750.5, "active": true },
+  { "id": "M-1001", "client": "Acme Corp", "area": "Contracts", "billed": 18500.0, "active": true },
+  { "id": "M-1004", "client": "Dovetail Inc", "area": "Employment", "billed": 9800.0, "active": true },
+  { "id": "M-1003", "client": "Cedar Holdings", "area": "M&A", "billed": 131200.0, "active": false },
+  { "id": "M-1005", "client": "Everline Group", "area": "IP", "billed": 27300.0, "active": true },
+  { "id": "M-1006", "client": "Fairhaven Ltd", "area": "Real Estate", "billed": 15050.0, "active": false }
+]

@@ -39,13 +39,15 @@ Training/course/
     W2D2_data-cleaning.ipynb
     W2D3_groupby-and-joins.ipynb
     W2D4_pandas-to-polars.ipynb
-  week3/   ← W3D1..W3D4   (HTML & CSS — reading Claude's markup)
-    W3D1_html-reading-claude-artifacts.ipynb
-    W3D2_css-basics.ipynb
-    W3D3_flexbox-and-grid.ipynb
-    W3D4_anatomy-of-a-claude-artifact.ipynb
-  week4/   ← W4D1..W4D4   (JavaScript & React → Vite + TypeScript)       [planned]
-  week5/   ← W5D1..W5D4   (bridge: JSON, HTTP & wiring a UI to data)     [planned]
+  week3/   ← HTML & CSS — real files you open in a browser (not notebooks)
+    01-html-structure/        (README.md + matter-intelligence.html)
+    02-css-basics/            (README.md + index.html + styles.css)
+    03-flexbox-and-grid/      (README.md + index.html + styles.css)
+    04-anatomy-of-an-artifact/(README.md + matter-intelligence.html)
+  week4/   ← JavaScript & React — real files + a runnable Vite + TS project
+    01-javascript/            (README.md + matters.js + events.html)
+    matter-app/               (Vite + React + TypeScript project; Days 2–4)
+  week5/   ← bridge: JSON, HTTP & wiring a UI to data                    [planned]
   week6/   ← W6D1..W6D4   (SQL, run the Snowflake way)
     W6D1_sql-select-the-snowflake-way.ipynb
     W6D2_group-by-and-aggregates.ipynb
@@ -114,30 +116,31 @@ place to learn the concepts.*
 
 ## Week 3 — HTML & CSS: reading Claude's markup
 
-Taught **reading-first** — start from an actual Claude HTML artifact and learn the language by understanding
-and modifying it, not by building from a blank page.
+**Real files you open in a browser** ([`week3/`](week3/)), taught **reading-first** — start from an actual
+Claude HTML artifact and learn the language by understanding and modifying it. Each lesson is a folder with a
+`README.md` and the `.html`/`.css` files.
 
-| Day | Session | Concepts | Ships |
+| Day | Folder | Concepts | Ships |
 |---|---|---|---|
-| **Mon** | HTML structure | elements, attributes, semantic tags, the DOM tree | read a Claude HTML artifact |
-| **Tue** | CSS basics | selectors, the box model, color & spacing | restyle that artifact |
-| **Thu** | Layout — flexbox & grid | flex/grid, responsive basics | a responsive card layout |
-| **Fri** | Anatomy of a Claude artifact | inline CSS/JS, `<script>`, data URIs — what's safe to change | a modified, shipped artifact |
+| **Mon** | `01-html-structure/` | elements, attributes, semantic tags, the DOM tree | read/modify a Claude HTML artifact |
+| **Tue** | `02-css-basics/` | selectors, the box model, an external stylesheet | restyle it via `styles.css` |
+| **Thu** | `03-flexbox-and-grid/` | flex/grid, responsive layout | a responsive card dashboard |
+| **Fri** | `04-anatomy-of-an-artifact/` | inline CSS/JS, `<script>`, data URIs — what's safe to change | a self-contained artifact + edit playbook |
 
-## Week 4 — JavaScript & React → Vite + TypeScript  *(planned)*
+## Week 4 — JavaScript & React → Vite + TypeScript
 
-From "make a page interactive" to **porting a Claude artifact into a real, buildable project** — the path
-from `.html`/`.jsx` output to production `.tsx`.
+**Real files + a runnable Vite project** ([`week4/`](week4/)). From "make a page do something" to **porting a
+Claude artifact into a real, buildable project** — `.html`/`.jsx` output to production `.tsx`.
 
-| Day | Session | Concepts | Ships |
+| Day | Where | Concepts | Ships |
 |---|---|---|---|
-| **Mon** | JavaScript essentials | variables, functions, arrays/objects, DOM events | make a page interactive |
-| **Tue** | React & JSX | components, `props`, `useState`; reading Claude's JSX | a small component from an artifact |
-| **Thu** | Artifact → project (Vite + TS) | `npm create vite`, `.tsx`, typing props/state | the artifact ported into a real project |
-| **Fri** | Render data + build | render `matters` from a **local JSON object**, `npm run build` + preview | a production build of the tool |
+| **Mon** | `01-javascript/` | variables, arrow functions, arrays, `map`/`filter`/`reduce`, DOM events | `node matters.js`; interactive `events.html` |
+| **Tue** | `matter-app/` | React & JSX — components, `props`, `useState`, reading Claude's JSX | run the app with `npm run dev` |
+| **Thu** | `matter-app/` | Vite + TypeScript — tooling and the `Matter` type | a type-safe project |
+| **Fri** | `matter-app/` | render from `matters.json`, `npm run build` + preview | a production build of the tool |
 
-*(Real network calls are deferred to Week 5 — here the component renders a hardcoded/imported JSON object,
-the standard React teaching order: props/state on static data first, fetching later.)*
+*(Days 2–4 all build up **one** Vite + React + TS project, `matter-app/`. Real network calls are deferred to
+Week 5 — the component renders imported JSON first, the standard React teaching order.)*
 
 ## Week 5 — Bridge: JSON, HTTP & wiring a UI to data  *(planned)*
 
@@ -152,12 +155,13 @@ The hinge between the two halves: your UI can render data (W3–4) and soon you'
 | **Fri** | End-to-end: UI ↔ data | serialize a DataFrame → JSON → render it in the Week-4 component | the tool wired to real data |
 
 **Design notes for the web weeks (3–5)**
-- **Reading-first, artifact-driven.** Every lesson starts from a real Claude artifact (HTML/JSX/TSX) — the
-  goal is to *understand and productionize the code Claude writes*, so the team can take an artifact to prod.
-- **Runs in a browser, no key.** HTML/CSS/JS lessons render inline (`IPython.display.HTML`) or as a
-  standalone `.html` file you open — no build step, no credentials.
-- **Vite + TypeScript for production.** Week 4 graduates to a real `npm` / Vite / TS project. Those build
-  lessons are the one place we step outside the notebook and **need Node.js installed** (called out in-lesson).
+- **Real files, not notebooks.** The web track is `.html`/`.css`/`.js`/`.tsx` files + a `README.md` lesson per
+  topic — you open pages in a browser and run the project with npm/Vite, exactly as you would in production.
+- **Reading-first, artifact-driven.** Every lesson starts from a real Claude artifact — the goal is to
+  *understand and productionize the code Claude writes*, so the team can take an artifact to prod.
+- **Mostly zero-setup; one `npm install`.** Week 3 (HTML/CSS) needs only a browser. Week 4 Day 1 needs Node to
+  run `matters.js`; Days 2–4 need Node + a one-time `npm install` in `matter-app/` (the one internet-connected
+  step). The committed Vite project is verified to build (`npm run build`).
 - **JSON/HTTP is the bridge, not a prerequisite.** Week 4 renders static/local JSON; Week 5 adds real
   `fetch`/HTTP and connects the UI to data — which sets up SQL/Snowflake (W6–7) and FastAPI.
 - **Legal tie-in.** The UI surfaces `matters` / *Matter Intelligence* data, keeping the capstone through-line.

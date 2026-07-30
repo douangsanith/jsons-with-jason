@@ -35,8 +35,9 @@ Sessions run in short **~30-minute blocks, Mon · Tue · Thu · Fri** (4 per wee
 `W{week}D{day}_{topic}.ipynb` (day: Mon=1, Tue=2, Thu=3, Fri=4).
 
 > *Note:* all weeks live under `course/` (`course/week1/` … `course/week7/`) — every week sits in one place.
-> **Built so far:** Weeks 1–3 (Python, then HTML/CSS) and Weeks 6–7 (SQL/Snowflake). Weeks 4–5 (JS/React
-> + JSON/HTTP) and Week 8 (dbt) are planned. See `course/README.md`.
+> **Built so far:** Weeks 1–2 (Python notebooks), Weeks 3–4 (web track — **real `.html`/`.css`/`.tsx` files +
+> a runnable Vite project**, not notebooks), and Weeks 6–7 (SQL/Snowflake notebooks). Week 5 (JSON/HTTP) and
+> Week 8 (dbt) are planned. See `course/README.md`.
 
 ## Getting started (once)
 

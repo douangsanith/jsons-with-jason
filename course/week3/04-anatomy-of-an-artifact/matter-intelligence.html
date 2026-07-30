@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matter Intelligence</title>
+
+  <!-- ========= STYLE: all CSS is inlined here so the file is self-contained ========= -->
+  <style>
+    body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; color: #111827; background: #f6f7f9; }
+    .card {
+      max-width: 680px; margin: 24px auto; padding: 20px;
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+    }
+    h1 { color: #1e3a8a; font-size: 22px; margin: 0 0 4px 0; }
+    .subtitle { color: #6b7280; margin-top: 0; }
+    .toolbar { margin: 12px 0; }
+    button { font: inherit; padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; cursor: pointer; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eef2f7; }
+    th { background: #f3f4f6; font-size: 13px; color: #374151; }
+    .disclaimer { color: #9ca3af; font-size: 12px; }
+  </style>
+</head>
+
+<body>
+  <!-- ========= BODY: everything the visitor sees ========= -->
+  <div class="card">
+    <header>
+      <h1>Matter Intelligence</h1>
+      <p class="subtitle"><span id="count">4</span> matters shown.</p>
+    </header>
+
+    <div class="toolbar">
+      <button id="toggle">Show active only</button>
+    </div>
+
+    <table id="matters">
+      <thead>
+        <tr><th>Matter</th><th>Client</th><th>Practice area</th><th>Billed</th></tr>
+      </thead>
+      <tbody>
+        <tr data-active="true"><td>M-1002</td><td>Brightline LLC</td><td>Litigation</td><td>$42,750.50</td></tr>
+        <tr data-active="true"><td>M-1001</td><td>Acme Corp</td><td>Contracts</td><td>$18,500.00</td></tr>
+        <tr data-active="false"><td>M-1003</td><td>Cedar Holdings</td><td>M&amp;A</td><td>$131,200.00</td></tr>
+        <tr data-active="true"><td>M-1004</td><td>Dovetail Inc</td><td>Employment</td><td>$9,800.00</td></tr>
+      </tbody>
+    </table>
+
+    <footer><p class="disclaimer">Not legal advice · a lawyer reviews any AI output.</p></footer>
+  </div>
+
+  <!-- ========= SCRIPT: all behavior is inlined here ========= -->
+  <script>
+    // A tiny bit of JavaScript (Week 4's topic). It filters the table to active matters.
+    const rows = () => Array.from(document.querySelectorAll('#matters tbody tr'));
+    const countEl = document.getElementById('count');
+    let activeOnly = false;
+
+    document.getElementById('toggle').addEventListener('click', () => {
+      activeOnly = !activeOnly;
+      let shown = 0;
+      rows().forEach(tr => {
+        const isActive = tr.getAttribute('data-active') === 'true';
+        const visible = !activeOnly || isActive;
+        tr.style.display = visible ? '' : 'none';
+        if (visible) shown++;
+      });
+      countEl.textContent = shown;
+      document.getElementById('toggle').textContent = activeOnly ? 'Show all' : 'Show active only';
+    });
+  </script>
+</body>
+</html>

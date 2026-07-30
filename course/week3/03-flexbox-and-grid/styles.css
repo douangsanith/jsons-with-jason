@@ -1,0 +1,44 @@
+/* Week 3 · Day 3 — Layout: flexbox & grid */
+
+.wrap {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #111827;
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+.wrap h1 { color: #1e3a8a; font-size: 22px; }
+
+/* ---- A single card (the box we lay out) ---- */
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  background: #f9fafb;
+}
+.card h3 { margin: 0 0 6px 0; color: #1e3a8a; }
+.card p  { margin: 2px 0; color: #374151; font-size: 14px; }
+.card .amt { font-weight: 600; }
+.card .tag {
+  display: inline-block;
+  background: #eef2ff; color: #3730a3;
+  padding: 2px 8px; border-radius: 999px; font-size: 12px;
+}
+
+/* ---- GRID: rows AND columns, responsive in one line ----
+   auto-fit + minmax = "as many ~180px columns as fit; each grows to share space". */
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+/* ---- FLEX: one dimension (a row). Swap `board` -> `row` in the HTML to try it.
+   justify-content spaces items along the row; flex-wrap lets them drop to a new line. ---- */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+.row .card { flex: 1 1 180px; }   /* grow, shrink, ideal width 180px */

@@ -1,0 +1,53 @@
+/* Week 3 · Day 2 — CSS basics
+   A rule is:  selector { property: value; }
+   Selectors here: `.class` (dot), element names, and descendant combinations.
+   Everything is scoped under .mi-dashboard so it's tidy and reusable. */
+
+.mi-dashboard {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #111827;
+  max-width: 640px;
+  margin: 24px auto;              /* center the card, breathing room top/bottom */
+  padding: 20px;                  /* space INSIDE the box (box model) */
+  border: 1px solid #e5e7eb;      /* the box's outline */
+  border-radius: 12px;            /* rounded corners */
+  background: #ffffff;
+}
+
+/* Header */
+.mi-dashboard h1 {
+  color: #1e3a8a;                 /* navy */
+  font-size: 22px;
+  margin: 0 0 4px 0;
+}
+.mi-dashboard .subtitle {
+  color: #6b7280;                 /* gray */
+  margin-top: 0;
+}
+
+/* The matters table */
+.mi-dashboard table.matters {
+  border-collapse: collapse;      /* single clean lines, not doubled borders */
+  width: 100%;
+}
+.mi-dashboard table.matters th,
+.mi-dashboard table.matters td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eef2f7;
+}
+.mi-dashboard table.matters th {
+  background: #f3f4f6;
+  font-size: 13px;
+  color: #374151;
+}
+/* A row highlight on hover (try it in the browser). */
+.mi-dashboard table.matters tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* Footer disclaimer */
+.mi-dashboard .disclaimer {
+  color: #9ca3af;
+  font-size: 12px;
+}
