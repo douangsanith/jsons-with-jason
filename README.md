@@ -13,7 +13,7 @@ Training/
   course/                             ← the course, organized WEEK-FIRST (continuous weeks, any topic)
     week1/                            ← Week 1 sessions (Python foundations, ending in NumPy)
     week2/                            ← Week 2 sessions (pandas deep-dive → Polars)
-    week3/                            ← Week 3 sessions (HTML & CSS — reading Claude's markup) [planned]
+    week3/                            ← Week 3 sessions (HTML & CSS — reading Claude's markup)
     week4/                            ← Week 4 sessions (JavaScript & React → Vite + TypeScript) [planned]
     week5/                            ← Week 5 sessions (bridge: JSON, HTTP & wiring a UI to data) [planned]
     week6/                            ← Week 6 sessions (SQL, run the Snowflake way: SELECT → GROUP BY → JOIN → SQL+Python)
@@ -35,8 +35,8 @@ Sessions run in short **~30-minute blocks, Mon · Tue · Thu · Fri** (4 per wee
 `W{week}D{day}_{topic}.ipynb` (day: Mon=1, Tue=2, Thu=3, Fri=4).
 
 > *Note:* all weeks live under `course/` (`course/week1/` … `course/week7/`) — every week sits in one place.
-> **Built so far:** Weeks 1–2 (Python) and Weeks 6–7 (SQL/Snowflake). Weeks 3–5 (web track) and Week 8 (dbt)
-> are planned. See `course/README.md`.
+> **Built so far:** Weeks 1–3 (Python, then HTML/CSS) and Weeks 6–7 (SQL/Snowflake). Weeks 4–5 (JS/React
+> + JSON/HTTP) and Week 8 (dbt) are planned. See `course/README.md`.
 
 ## Getting started (once)
 

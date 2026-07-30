@@ -39,7 +39,11 @@ Training/course/
     W2D2_data-cleaning.ipynb
     W2D3_groupby-and-joins.ipynb
     W2D4_pandas-to-polars.ipynb
-  week3/   ← W3D1..W3D4   (HTML & CSS — reading Claude's markup)         [planned]
+  week3/   ← W3D1..W3D4   (HTML & CSS — reading Claude's markup)
+    W3D1_html-reading-claude-artifacts.ipynb
+    W3D2_css-basics.ipynb
+    W3D3_flexbox-and-grid.ipynb
+    W3D4_anatomy-of-a-claude-artifact.ipynb
   week4/   ← W4D1..W4D4   (JavaScript & React → Vite + TypeScript)       [planned]
   week5/   ← W5D1..W5D4   (bridge: JSON, HTTP & wiring a UI to data)     [planned]
   week6/   ← W6D1..W6D4   (SQL, run the Snowflake way)
@@ -108,7 +112,7 @@ pandas toolkit (select/filter/group, cleaning, join-then-group); Day 4 swaps the
 Arrow + multithreading + lazy execution), but pandas still wins on ecosystem maturity and is the right
 place to learn the concepts.*
 
-## Week 3 — HTML & CSS: reading Claude's markup  *(planned)*
+## Week 3 — HTML & CSS: reading Claude's markup
 
 Taught **reading-first** — start from an actual Claude HTML artifact and learn the language by understanding
 and modifying it, not by building from a blank page.
