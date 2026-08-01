@@ -1,0 +1,49 @@
+<!-- ANNOTATED VERSION — same page as events.html, with teaching comments.
+     Read this one to learn; use the clean events.html to build. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JS events — matters</title>
+  <!-- Inline CSS just to make the demo look tidy — not the focus of this lesson. -->
+  <style>
+    body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; color: #111827; margin: 24px; }
+    .box { max-width: 380px; padding: 16px; border: 1px solid #e5e7eb; border-radius: 10px; }
+    button { font: inherit; padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <!-- Open this file in a browser and click the button. This is the DOM + events:
+       JavaScript reaching into the page and reacting to a click.
+       DOM = "Document Object Model", the browser's live, in-memory version of the
+       page that JavaScript can read and change. -->
+  <div class="box">
+    <!-- id="count" gives this element a unique name the script can look up.
+         <strong> just makes the number bold. -->
+    <p>Open matters: <strong id="count">3</strong></p>
+    <button id="close">Close one</button>
+    <button id="reset">Reset</button>
+  </div>
+
+  <script>
+    // document.getElementById("count") reaches into the DOM to find the element
+    // whose id is "count", so we can read and change the number it shows.
+    const countEl = document.getElementById("count");
+
+    // addEventListener("click", fn) wires a user action to a function: every time
+    // the "Close one" button is clicked, this arrow function runs.
+    document.getElementById("close").addEventListener("click", () => {
+      // textContent is the text inside the element (always a string). Number(...)
+      // converts that string ("3") into an actual number (3) so we can subtract.
+      const n = Number(countEl.textContent);
+      if (n > 0) countEl.textContent = n - 1;   // don't go below zero
+    });
+
+    // A second button with its own click handler: reset the counter back to 3.
+    document.getElementById("reset").addEventListener("click", () => {
+      countEl.textContent = 3;
+    });
+  </script>
+</body>
+</html>

@@ -8,6 +8,11 @@ spacing, borders — using the `class` hooks from Lesson 1.
 > 👉 **Open [`index.html`](index.html) in your browser.** Then edit `styles.css`, save, and **refresh** to
 > see each change. (Structure in `index.html` never changes today — only the stylesheet.)
 
+> 📝 **Learning copies:** [`index.annotated.html`](index.annotated.html) and
+> [`styles.annotated.css`](styles.annotated.css) are the same files with a plain-English comment on every rule
+> (what a selector is, the box model, `:hover`, etc.). Read those to learn; use the clean `index.html` / `styles.css`
+> to build.
+
 ---
 
 ## 🎯 Objectives

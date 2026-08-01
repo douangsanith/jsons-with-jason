@@ -8,6 +8,11 @@
 > 👉 **Open [`matter-intelligence.html`](matter-intelligence.html) in your browser now** (double-click it),
 > and keep it side-by-side with this lesson and the file in your editor.
 
+> 📝 **Two copies of the file:** [`matter-intelligence.html`](matter-intelligence.html) is the clean version;
+> [`matter-intelligence.annotated.html`](matter-intelligence.annotated.html) is the same page with a plain-English
+> comment on **every tag** (what `<!DOCTYPE>` is, `<head>` vs `<main>`, and so on). Read the annotated one to learn;
+> use the clean one to build. Both render identically in the browser.
+
 ---
 
 ## 🎯 Objectives

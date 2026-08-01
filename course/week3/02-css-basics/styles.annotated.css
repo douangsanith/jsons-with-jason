@@ -1,0 +1,72 @@
+/* ANNOTATED VERSION — same styles as styles.css, with teaching comments.
+   Read this one to learn; use the clean styles.css to build.
+
+   Week 3 · Day 2 — CSS basics
+   CSS = the LOOK of the page. HTML is the structure; CSS is the paint.
+
+   Every CSS rule has the same shape:   selector { property: value; }
+     · selector  = WHICH elements to style
+     · property  = WHAT to change (color, padding, font-size…)
+     · value     = the setting for that property
+
+   Selectors used below:
+     · `.mi-dashboard`  — a CLASS selector (the dot means "class"); matches
+                          any element with class="mi-dashboard".
+     · `h1`, `table`    — ELEMENT selectors; match that kind of tag.
+     · `.a .b`          — a DESCENDANT selector (space); ".b inside an .a".
+
+   The box model (every element is a box):
+     content → padding (space INSIDE) → border (the edge) → margin (space OUTSIDE).
+
+   Colors like #1e3a8a are HEX codes: #RRGGBB (red, green, blue). #ffffff = white. */
+
+.mi-dashboard {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #111827;                 /* text color (near-black) */
+  max-width: 640px;               /* the box never grows wider than 640px */
+  margin: 24px auto;              /* center the card, breathing room top/bottom */
+  padding: 20px;                  /* space INSIDE the box (box model) */
+  border: 1px solid #e5e7eb;      /* the box's outline: width, style, color */
+  border-radius: 12px;            /* rounded corners */
+  background: #ffffff;            /* fill color behind the content */
+}
+
+/* Header — this rule targets an <h1> that sits INSIDE .mi-dashboard. */
+.mi-dashboard h1 {
+  color: #1e3a8a;                 /* navy */
+  font-size: 22px;
+  margin: 0 0 4px 0;              /* margins: top right bottom left */
+}
+.mi-dashboard .subtitle {
+  color: #6b7280;                 /* gray */
+  margin-top: 0;
+}
+
+/* The matters table — `table.matters` means "a <table> with class 'matters'". */
+.mi-dashboard table.matters {
+  border-collapse: collapse;      /* single clean lines, not doubled borders */
+  width: 100%;                    /* fill the width of the card */
+}
+/* One rule can target two selectors at once (separated by a comma). */
+.mi-dashboard table.matters th,
+.mi-dashboard table.matters td {
+  text-align: left;
+  padding: 8px 10px;              /* space inside each cell: 8px top/bottom, 10px sides */
+  border-bottom: 1px solid #eef2f7;
+}
+.mi-dashboard table.matters th {
+  background: #f3f4f6;
+  font-size: 13px;
+  color: #374151;
+}
+/* :hover is a "pseudo-class" — it applies only while the mouse is over the row.
+   Try it in the browser: hover a row and watch the background change. */
+.mi-dashboard table.matters tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* Footer disclaimer */
+.mi-dashboard .disclaimer {
+  color: #9ca3af;
+  font-size: 12px;
+}

@@ -8,6 +8,10 @@
 > 👉 **Open [`index.html`](index.html) in your browser, then drag the window narrower and wider** — watch the
 > cards re-flow. That's responsive layout.
 
+> 📝 **Learning copies:** [`index.annotated.html`](index.annotated.html) and
+> [`styles.annotated.css`](styles.annotated.css) explain grid vs. flex line by line (what `auto-fit`, `minmax`,
+> and `flex: 1 1 180px` mean). Read those to learn; use the clean files to build.
+
 ---
 
 ## 🎯 Objectives

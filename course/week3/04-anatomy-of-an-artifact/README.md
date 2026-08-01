@@ -9,6 +9,10 @@ structure + style + a working bit of script — and a **modification playbook** 
 > the JavaScript actually runs (it's a real browser, not a notebook) — the table filters and the count
 > updates.
 
+> 📝 **Learning copy:** [`matter-intelligence.annotated.html`](matter-intelligence.annotated.html) is the same
+> self-contained file with comments walking through all three layers — the `<style>` CSS, the `data-active`
+> attributes, and every line of the `<script>`. Read that to learn; use the clean file to build.
+
 ---
 
 ## 🎯 Objectives

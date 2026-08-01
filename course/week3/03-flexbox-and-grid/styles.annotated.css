@@ -1,0 +1,62 @@
+/* ANNOTATED VERSION — same styles as styles.css, with teaching comments.
+   Read this one to learn; use the clean styles.css to build.
+
+   Week 3 · Day 3 — Layout: flexbox & grid
+   These are the two tools CSS gives you for ARRANGING boxes on the page.
+     · GRID = two dimensions (rows AND columns) — great for a gallery of cards.
+     · FLEX = one dimension (a single row or column) — great for a toolbar. */
+
+.wrap {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #111827;
+  max-width: 900px;               /* content never grows wider than 900px */
+  margin: 24px auto;              /* auto left/right margins center the block */
+  padding: 0 16px;                /* a little breathing room on the sides */
+}
+.wrap h1 { color: #1e3a8a; font-size: 22px; }
+
+/* ---- A single card (the box we lay out) ---- */
+.card {
+  border: 1px solid #e5e7eb;      /* thin gray outline */
+  border-radius: 10px;            /* rounded corners */
+  padding: 14px;                  /* space inside the card */
+  background: #f9fafb;            /* very light gray fill */
+}
+.card h3 { margin: 0 0 6px 0; color: #1e3a8a; }
+.card p  { margin: 2px 0; color: #374151; font-size: 14px; }
+.card .amt { font-weight: 600; }  /* make the dollar amount bold */
+/* A "pill" tag. inline-block lets the background hug just the text.
+   border-radius: 999px rounds the ends into a pill shape. */
+.card .tag {
+  display: inline-block;
+  background: #eef2ff; color: #3730a3;
+  padding: 2px 8px; border-radius: 999px; font-size: 12px;
+}
+
+/* ---- GRID: rows AND columns, responsive in one line ----
+   display: grid turns .board into a grid container; its children become cells.
+   grid-template-columns defines the columns. The magic phrase here:
+     repeat(auto-fit, minmax(180px, 1fr))
+   = "make as many columns as fit; each is at least 180px and grows (1fr = one
+      share of the leftover space) to fill the row." Resize the window to watch
+   columns add and drop automatically — that's "responsive" with no media query.
+   gap is the space BETWEEN grid items. */
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+/* ---- FLEX: one dimension (a row). Swap `board` -> `row` in the HTML to try it.
+   display: flex lays the cards out in a row.
+   flex-wrap: wrap lets them drop onto a new line when they run out of space.
+   justify-content spaces the items along the row. ---- */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+/* flex: 1 1 180px = grow / shrink / ideal-width. Each card starts at ~180px,
+   can grow to share extra space, and can shrink if space is tight. */
+.row .card { flex: 1 1 180px; }

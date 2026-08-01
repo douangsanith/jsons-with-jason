@@ -1,0 +1,51 @@
+<!-- ANNOTATED VERSION — same page as index.html, with teaching comments.
+     Read this one to learn; use the clean index.html to build. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matter Intelligence</title>
+  <!-- Structure lives here; the LOOK lives in the stylesheet (linked below).
+       <link rel="stylesheet"> pulls in an external CSS file so the styling
+       lives in its own file instead of being mixed into the HTML.
+       (This annotated page loads the annotated CSS so the pair matches.) -->
+  <link rel="stylesheet" href="styles.annotated.css">
+</head>
+<body>
+
+  <!-- <div> is a generic box with no meaning of its own — a container we use
+       purely for grouping and styling. The class="mi-dashboard" attribute is a
+       LABEL: CSS targets ".mi-dashboard" to style everything inside this box. -->
+  <div class="mi-dashboard">
+    <header>
+      <h1>Matter Intelligence</h1>
+      <!-- class="subtitle" lets the CSS style THIS paragraph differently
+           from other paragraphs. -->
+      <p class="subtitle">Active matters overview — Legal Innovation Team.</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Top active matters</h2>
+        <!-- class="matters" tags this specific table so CSS can target it. -->
+        <table class="matters">
+          <thead>
+            <tr><th>Matter</th><th>Client</th><th>Practice area</th><th>Billed</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>M-1002</td><td>Brightline LLC</td><td>Litigation</td><td>$42,750.50</td></tr>
+            <tr><td>M-1001</td><td>Acme Corp</td><td>Contracts</td><td>$18,500.00</td></tr>
+            <tr><td>M-1004</td><td>Dovetail Inc</td><td>Employment</td><td>$9,800.00</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer>
+      <p class="disclaimer">Not legal advice · a lawyer reviews any AI output.</p>
+    </footer>
+  </div>
+
+</body>
+</html>

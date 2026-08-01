@@ -1,0 +1,35 @@
+<!-- ANNOTATED VERSION — same page as index.html, with teaching comments.
+     Read this one to learn; use the clean index.html to build. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matters dashboard</title>
+  <!-- Loads the annotated stylesheet so this learning pair stays together. -->
+  <link rel="stylesheet" href="styles.annotated.css">
+</head>
+<body>
+
+  <!-- .wrap is just a centered container that limits how wide the content gets. -->
+  <div class="wrap">
+    <h1>Active matters</h1>
+
+    <!-- A GRID of cards. The .board rule in the CSS turns this <div> into a grid,
+         and each .card inside it becomes a grid item.
+         Change `board` to `row` here to see the FLEX version instead. -->
+    <div class="board">
+      <!-- Each .card is one box. <h3> is a third-level heading (smaller than h2).
+           The class on a <p> (like "tag" or "amt") lets the CSS style it specially. -->
+      <div class="card"><h3>M-1002</h3><p>Brightline LLC</p><p class="tag">Litigation</p><p class="amt">$42,750.50</p></div>
+      <div class="card"><h3>M-1001</h3><p>Acme Corp</p><p class="tag">Contracts</p><p class="amt">$18,500.00</p></div>
+      <div class="card"><h3>M-1004</h3><p>Dovetail Inc</p><p class="tag">Employment</p><p class="amt">$9,800.00</p></div>
+      <!-- &amp; is an HTML "entity" — the safe way to write a literal & character. -->
+      <div class="card"><h3>M-1003</h3><p>Cedar Holdings</p><p class="tag">M&amp;A</p><p class="amt">$131,200.00</p></div>
+      <div class="card"><h3>M-1005</h3><p>Everline Group</p><p class="tag">IP</p><p class="amt">$27,300.00</p></div>
+      <div class="card"><h3>M-1006</h3><p>Fairhaven Ltd</p><p class="tag">Real Estate</p><p class="amt">$15,050.00</p></div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -11,6 +11,11 @@ powers React.
 >   [nodejs.org](https://nodejs.org) if you don't have it).
 > - In a browser: double-click [`events.html`](events.html) and click the buttons.
 
+> 📝 **Learning copies:** [`matters.annotated.js`](matters.annotated.js) and
+> [`events.annotated.html`](events.annotated.html) are the same code with a plain-English comment on every line
+> (arrays vs. objects, `map`/`filter`/`reduce`, the DOM, `addEventListener`). Read those to learn; use the clean
+> files to build. Run the annotated script with `node matters.annotated.js`.
+
 ---
 
 ## 🎯 Objectives

@@ -1,0 +1,89 @@
+<!-- ANNOTATED VERSION — same page as matter-intelligence.html, with teaching
+     comments on every tag. Read this one to learn; use the clean one to build. -->
+
+<!-- <!DOCTYPE html> tells the browser "this is a modern HTML5 page."
+     It is not really a tag — it's a one-line declaration that must be the
+     very first thing in the file so the browser renders in standards mode. -->
+<!DOCTYPE html>
+
+<!-- <html> is the ROOT element — everything on the page lives inside it.
+     lang="en" tells browsers and screen readers the page is in English. -->
+<html lang="en">
+
+<!-- <head> = information ABOUT the page that the visitor does NOT see directly:
+     the title, character settings, links to stylesheets, etc.
+     Think of it as the label on a box, not the contents. -->
+<head>
+  <!-- charset="utf-8" lets the page display any character (accents, €, emoji…). -->
+  <meta charset="utf-8">
+  <!-- The viewport tag makes the page scale correctly on phones and tablets. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <title> is the text shown in the browser tab (and in search results). -->
+  <title>Matter Intelligence</title>
+  <!-- No CSS yet — this lesson is about STRUCTURE. We add styling in 02-css-basics. -->
+</head>
+
+<!-- <body> = everything the visitor actually SEES on the page. -->
+<body>
+
+  <!-- <header> is the top banner of the page: the title and a short intro.
+       (Not to be confused with <head> above — <header> is visible content.) -->
+  <header>
+    <!-- <h1> is the single most important heading — the page's title.
+         Use only ONE <h1> per page. -->
+    <h1>Matter Intelligence</h1>
+    <!-- <p> is a paragraph — a block of ordinary text. -->
+    <p>Active matters overview — Legal Innovation Team.</p>
+  </header>
+
+  <!-- <main> is the primary content of the page — the reason the page exists.
+       There should be exactly one <main> per page. -->
+  <main>
+    <!-- <section> groups related content together, each with its own heading.
+         It's how we break a page into meaningful chunks. -->
+    <section>
+      <!-- <h2> is a sub-heading, one level below <h1>. Headings go h1 → h2 → h3
+           in order, like an outline. -->
+      <h2>Top active matters</h2>
+
+      <!-- <table> displays data in rows and columns, like a spreadsheet. -->
+      <table>
+        <!-- <thead> holds the header row (the column titles). -->
+        <thead>
+          <!-- <tr> = table row. <th> = table HEADER cell (bold column title). -->
+          <tr>
+            <th>Matter</th>
+            <th>Client</th>
+            <th>Practice area</th>
+            <th>Billed</th>
+          </tr>
+        </thead>
+        <!-- <tbody> holds the actual data rows. -->
+        <tbody>
+          <!-- Each <tr> is one row; each <td> is one data CELL in that row. -->
+          <tr><td>M-1002</td><td>Brightline LLC</td><td>Litigation</td><td>$42,750.50</td></tr>
+          <tr><td>M-1001</td><td>Acme Corp</td><td>Contracts</td><td>$18,500.00</td></tr>
+          <tr><td>M-1004</td><td>Dovetail Inc</td><td>Employment</td><td>$9,800.00</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Notes</h2>
+      <!-- <ul> = unordered (bulleted) list. Each item is an <li> (list item).
+           Use <ol> instead if the order/numbering matters. -->
+      <ul>
+        <li>Data is synthetic — no real client information.</li>
+        <!-- <a> is a link (an "anchor"). href is the address it points to. -->
+        <li>See the <a href="https://example.com/docket">full docket</a> for details.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- <footer> is the bottom of the page: fine print, disclaimers, credits. -->
+  <footer>
+    <p>Not legal advice · a lawyer reviews any AI output.</p>
+  </footer>
+
+</body>
+</html>
