@@ -1,0 +1,9 @@
+metric,value
+orders,36
+revenue,153.2
+mean_price,4.26
+median_price,4.5
+std_price,1.01
+p90_price,5.42
+orders_over_5,12
+share_over_5_pct,33.3
