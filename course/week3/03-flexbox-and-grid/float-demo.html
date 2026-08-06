@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Before flexbox: the float problem (live demo)</title>
+
+  <!-- This demo is intentionally self-contained (styles are inline in this <head>)
+       so you can open it with a double-click and see the OLD way misbehave.
+       Read section 2 of README.md alongside it. -->
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: #111827;
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 0 16px;
+      line-height: 1.5;
+    }
+    h1 { color: #1e3a8a; font-size: 22px; }
+    h2 { color: #1e3a8a; font-size: 18px; margin-top: 32px; }
+    .note { color: #6b7280; font-size: 14px; }
+    code { background: #eef2ff; color: #3730a3; padding: 1px 5px; border-radius: 4px; }
+
+    /* ---- The floated cards (shared by both demos) ---- */
+    .card {
+      float: left;              /* the 2000s way to make columns */
+      width: 30%;
+      margin: 0 1.5%;
+      box-sizing: border-box;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px;
+      background: #f9fafb;
+    }
+    .card h3 { margin: 0 0 6px 0; color: #1e3a8a; }
+    .card p  { margin: 2px 0; color: #374151; font-size: 14px; }
+
+    /* The container we WANT to wrap around the cards.
+       Give it a visible background + border so you can SEE whether it
+       actually contains its children. */
+    .row {
+      background: #dbeafe;
+      border: 2px dashed #1e3a8a;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    /* A bar placed AFTER the row, so you can watch it ride UP over the
+       floated cards when the container collapses. */
+    .after-bar {
+      background: #fee2e2;
+      border: 1px solid #ef4444;
+      color: #991b1b;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    /* THE FIX: the clearfix. Adding this class makes .row contain its floats. */
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Before flexbox &amp; grid: the <code>float</code> problem</h1>
+  <p class="note">
+    Both boxes below use the exact same floated <code>.card</code> columns. The only difference: the second
+    container has the <code>clearfix</code> class. Watch what the blue dashed box and the red bar do.
+  </p>
+
+  <!-- ============ BROKEN: container collapses ============ -->
+  <h2>❌ Without a clearfix — the container collapses</h2>
+  <p class="note">
+    The blue dashed box <em>should</em> wrap around the three cards. Instead it collapses to a thin strip at
+    the top, and the red bar slides UP behind the cards — because floated elements leave normal flow, so their
+    parent thinks it's empty (height&nbsp;=&nbsp;0).
+  </p>
+
+  <div class="row">
+    <div class="card"><h3>M-1001</h3><p>Acme Corp</p><p>Contracts</p></div>
+    <div class="card"><h3>M-1002</h3><p>Brightline LLC</p><p>Litigation</p></div>
+    <div class="card"><h3>M-1003</h3><p>Cedar Holdings</p><p>M&amp;A</p></div>
+  </div>
+  <div class="after-bar">I'm a footer bar placed AFTER the row — I should sit below the cards, not on top of them.</div>
+
+  <!-- ============ FIXED: clearfix ============ -->
+  <h2>✅ With the clearfix — the container behaves</h2>
+  <p class="note">
+    Same cards, same floats — but this <code>.row</code> also has <code>class="clearfix"</code>. Now the blue
+    box grows to contain the cards, and the red bar sits properly below. This boilerplate lived in <em>every</em>
+    stylesheet for over a decade.
+  </p>
+
+  <div class="row clearfix">
+    <div class="card"><h3>M-1001</h3><p>Acme Corp</p><p>Contracts</p></div>
+    <div class="card"><h3>M-1002</h3><p>Brightline LLC</p><p>Litigation</p></div>
+    <div class="card"><h3>M-1003</h3><p>Cedar Holdings</p><p>M&amp;A</p></div>
+  </div>
+  <div class="after-bar">I'm a footer bar placed AFTER the row — now I'm correctly below the cards.</div>
+
+  <!-- ============ The modern one-liner ============ -->
+  <h2>🎉 Today: no float, no clearfix, no hack</h2>
+  <p class="note">
+    The same three columns in modern CSS — one <code>display: flex</code> and a <code>gap</code>. The container
+    contains its children automatically, spacing is real, and there's nothing to "clear."
+  </p>
+
+  <div style="display: flex; gap: 12px; background: #dcfce7; border: 2px dashed #166534; padding: 10px; border-radius: 10px;">
+    <div class="card" style="float: none; width: auto; flex: 1; margin: 0;"><h3>M-1001</h3><p>Acme Corp</p><p>Contracts</p></div>
+    <div class="card" style="float: none; width: auto; flex: 1; margin: 0;"><h3>M-1002</h3><p>Brightline LLC</p><p>Litigation</p></div>
+    <div class="card" style="float: none; width: auto; flex: 1; margin: 0;"><h3>M-1003</h3><p>Cedar Holdings</p><p>M&amp;A</p></div>
+  </div>
+  <div class="after-bar" style="background:#dcfce7;border-color:#166534;color:#166534;">I'm below the cards with zero effort. This is why we switched.</div>
+
+  <p class="note" style="margin-top: 32px;">
+    👉 Try it yourself: in this file's HTML, delete <code>clearfix</code> from the second <code>&lt;div class="row clearfix"&gt;</code>
+    and refresh — it breaks too. That's the tax floats charged on every layout.
+  </p>
+
+</body>
+</html>
