@@ -42,3 +42,14 @@
   justify-content: space-between;
 }
 .row .card { flex: 1 1 180px; }   /* grow, shrink, ideal width 180px */
+
+/* ---- FLEX-DIRECTION: same flex container, but stacked as a COLUMN.
+   Swap `board` -> `stack` in the HTML to run the cards top-to-bottom.
+   Note: in a column, the MAIN axis is vertical, so justify-content would
+   space them up/down, and align-items would align them left/right. ---- */
+.stack {
+  display: flex;
+  flex-direction: column;   /* ↓ top to bottom instead of the default row */
+  gap: 12px;
+  align-items: stretch;     /* cross axis = horizontal → cards fill the width */
+}

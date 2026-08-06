@@ -187,6 +187,34 @@ This one line is the famous "responsive grid," and it's what most Claude dashboa
 - `flex-wrap: wrap` lets items drop to a new line instead of overflowing.
 - `flex: 1 1 180px` = grow, shrink, ideal width 180px.
 
+### 4a · `flex-direction` — row *or* column
+
+`display: flex` defaults to a **row** (left → right), but that's just the default. One property,
+`flex-direction`, flips the axis — this is the "or column" half of flexbox:
+
+```css
+.row    { display: flex; flex-direction: row; }            /* default → → left to right */
+.stack  { display: flex; flex-direction: column; }         /* ↓ top to bottom          */
+.row-r  { display: flex; flex-direction: row-reverse; }    /* ← → right to left        */
+.stack-r{ display: flex; flex-direction: column-reverse; } /* ↑ bottom to top          */
+```
+
+`styles.css` has a ready-to-try `.stack` (column) version — swap `class="board"` for `class="stack"` in
+`index.html` and the cards run **top to bottom** instead of across.
+
+**The key idea — main axis vs cross axis.** Flex has two axes, and `flex-direction` decides which is which:
+
+| `flex-direction` | Main axis (what `justify-content` controls) | Cross axis (what `align-items` controls) |
+|---|---|---|
+| `row` (default) | horizontal ← → | vertical ↑ ↓ |
+| `column` | vertical ↑ ↓ | horizontal ← → |
+
+So the *same* `justify-content: center` **centers horizontally** in a row but **vertically** in a column —
+because it always follows the main axis. This trips everyone up once; after that it's second nature.
+
+> **Gotcha:** `...-reverse` only flips *visual* order, not the HTML/DOM order — so keyboard and screen-reader
+> users still move through the original source order. Use it for looks, not to fix real ordering.
+
 **Flex is for one dimension (a row *or* column); grid is for two (rows *and* columns).**
 
 > **Legal analogy:** flex is arranging exhibits **side by side on a table**; grid is a **full page layout**
@@ -198,15 +226,19 @@ This one line is the famous "responsive grid," and it's what most Claude dashboa
 
 1. **Switch grid → flex:** in `index.html`, change `<div class="board">` to `<div class="row">`, save,
    refresh. Same cards, laid out by flexbox. Resize the window to see wrapping.
-2. Back on the grid (`class="board"`), change `minmax(180px, 1fr)` to `minmax(120px, 1fr)` — more, narrower
+2. **Switch row → column:** change `class="board"` to `class="stack"` — the same cards now run **top to
+   bottom**. That's `flex-direction: column`. Then, in `.stack`, add `align-items: center;` and watch the
+   cards center **horizontally** (the cross axis in a column).
+3. Back on the grid (`class="board"`), change `minmax(180px, 1fr)` to `minmax(120px, 1fr)` — more, narrower
    columns.
-3. In `.card`, add `text-align: center;` and see every card's content center.
+4. In `.card`, add `text-align: center;` and see every card's content center.
 
 <details><summary>✅ What to expect</summary>
 
-With `row`, cards sit in a spaced row that wraps on narrow screens. With smaller `minmax`, more columns fit
-per row. `text-align: center` centers the card text. Flex/grid properties go on the **container**; if nothing
-changes, make sure you edited the container's class, not the `.card`.
+With `row`, cards sit in a spaced row that wraps on narrow screens. With `stack`, they run top-to-bottom, and
+`align-items: center` narrows and centers them horizontally. With smaller `minmax`, more columns fit per row.
+`text-align: center` centers the card text. Flex/grid properties go on the **container**; if nothing changes,
+make sure you edited the container's class, not the `.card`.
 </details>
 
 ## 📝 Recap
