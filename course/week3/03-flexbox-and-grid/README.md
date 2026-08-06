@@ -185,6 +185,10 @@ This one line is the famous "responsive grid," and it's what most Claude dashboa
 
 ## 4 · Flexbox — a single row
 
+> 🎛️ **Play with it live:** the [App Brewery flexbox playground](https://appbrewery.github.io/flex-layout/)
+> lets you toggle `justify-content`, `flex-wrap`, `align-items`, and `align-content` and watch the boxes rearrange
+> instantly — the fastest way to build intuition for the properties below.
+
 `styles.css` also has a `.row` rule (unused until you switch to it):
 
 ```css
@@ -225,6 +229,103 @@ because it always follows the main axis. This trips everyone up once; after that
 > **Gotcha:** `...-reverse` only flips *visual* order, not the HTML/DOM order — so keyboard and screen-reader
 > users still move through the original source order. Use it for looks, not to fix real ordering.
 
+### 4b · `flex-basis` — the *starting size* before growing or shrinking
+
+Remember `flex: 1 1 180px` on the cards? That's shorthand for **three** properties, and the last one is the
+one people skip over:
+
+```css
+.row .card { flex: 1 1 180px; }
+/* is exactly the same as: */
+.row .card {
+  flex-grow:   1;      /* may I get BIGGER to fill leftover space?  1 = yes */
+  flex-shrink: 1;      /* may I get SMALLER if we run out of room?  1 = yes */
+  flex-basis:  180px;  /* what's my IDEAL size BEFORE any grow/shrink? */
+}
+```
+
+**`flex-basis` is the size an item *wants* to be**, measured along the main axis (width in a row, height in a
+column). Flexbox starts every item at its `flex-basis`, then uses `grow`/`shrink` to divide up whatever space
+is left over or missing. So the flow is: **basis first → then grow/shrink adjusts.**
+
+- `flex-basis: 180px` → "start me at 180px." With `flex-grow: 1`, all cards start at 180 and then stretch
+  equally to fill the row.
+- `flex-basis: 0` (as in `flex: 1`) → "I have *no* preferred size; just split the container by the grow
+  numbers." This is how you get **truly equal columns** regardless of content — each item's final width is
+  purely its share of the space.
+- `flex-basis: auto` (the default) → "use my `width`, or my content's natural size." Cards with more text
+  end up wider. This is why `flex: 1` (basis 0) looks even but `flex: auto` (basis auto) doesn't.
+
+**`flex-basis` vs `width`:** in a flex row, `flex-basis` *wins* over `width` — set the starting size with
+`flex-basis` and let it be the single source of truth. (In a **column**, `flex-basis` controls **height**,
+which surprises people the first time.)
+
+| Shorthand | grow / shrink / basis | Behavior |
+|---|---|---|
+| `flex: 1` | `1 1 0` | equal columns, ignore content width |
+| `flex: auto` | `1 1 auto` | grow to fill, but bigger content → wider item |
+| `flex: none` | `0 0 auto` | fixed to content size; never grow or shrink |
+| `flex: 1 1 180px` | `1 1 180px` | start at 180px, then share leftover space evenly |
+
+### 4c · `order` — rearrange items *without* touching the HTML
+
+By default flex items appear in **source order** — the order they're written in the HTML. The `order`
+property lets you override that *visually* without moving a single line of markup:
+
+```css
+.row .card         { order: 0; }   /* default — everything is 0 */
+.row .card.urgent  { order: -1; }  /* lower number = comes FIRST */
+.row .card.archived{ order: 1; }   /* higher number = comes LAST */
+```
+
+Items are sorted by their `order` number (low → high); ties keep source order. Since the default is `0`, a
+single `order: -1` is the quick trick to "float this one to the front," and `order: 1` sends one to the back —
+without re-writing the HTML.
+
+**Why this is useful:** the HTML can stay in the order that makes sense for *meaning* (and for screen readers),
+while CSS arranges it for *looks* — and you can even flip that arrangement responsively:
+
+```css
+/* Keep an "Urgent" card first in the markup, but on wide screens show it last */
+@media (min-width: 700px) {
+  .row .card.urgent { order: 99; }
+}
+```
+
+> ⚠️ **Same gotcha as `...-reverse`:** `order` changes the **visual** order only, *not* the DOM order.
+> Keyboard tabbing and screen readers still follow the HTML. So `order` is great for **presentation**, but
+> don't use it to fix an order that actually matters for reading or focus — fix the HTML for that.
+
+**`order` vs `flex-direction: ...-reverse`:** `-reverse` flips *all* items at once; `order` repositions
+*specific* items (or a few) precisely. Reach for `order` when only one or two things need to move.
+
+### 4d · `flex-wrap` — `wrap` vs `nowrap` (does the row break onto new lines?)
+
+`flex-wrap` decides what happens when the items don't all fit on one line:
+
+```css
+.row { display: flex; flex-wrap: nowrap; }  /* default — everyone stays on ONE line */
+.row { display: flex; flex-wrap: wrap;   }  /* overflowing items drop to a NEW line */
+```
+
+- **`nowrap` (the default):** flex **forces every item onto a single line**, even if there's no room. To make
+  them fit, it *shrinks* them (that's `flex-shrink` doing its job) — and once they can't shrink any further,
+  they **overflow** the container. On a narrow screen this is how you get cards squished into unreadable
+  slivers or spilling past the edge.
+- **`wrap`:** when the line runs out of room, the next item **flows down to a new line** instead of shrinking
+  everything. Each line then lays out on its own. This is what makes a row of cards **responsive** — it becomes
+  as many rows as it needs as the window narrows.
+
+That's why the lesson's `.row` uses `flex-wrap: wrap`: resize the window and the cards re-flow onto new lines
+instead of getting crushed. Try switching it to `nowrap` and dragging the window narrow — you'll watch the
+cards shrink and then overflow. That single word is the difference between "responsive" and "broken on mobile."
+
+> **Mental model:** `nowrap` = "one line, no matter what (shrink or overflow)." `wrap` = "keep items their
+> size; add more lines as needed." (There's also `wrap-reverse`, which wraps *upward* — rarely needed.)
+>
+> Note this is a **1-D** kind of wrapping. If you want a true 2-D grid where items align into neat rows **and**
+> columns, that's what **CSS Grid** (section 3) is for.
+
 **Flex is for one dimension (a row *or* column); grid is for two (rows *and* columns).**
 
 > **Legal analogy:** flex is arranging exhibits **side by side on a table**; grid is a **full page layout**
@@ -239,14 +340,25 @@ because it always follows the main axis. This trips everyone up once; after that
 2. **Switch row → column:** change `class="board"` to `class="stack"` — the same cards now run **top to
    bottom**. That's `flex-direction: column`. Then, in `.stack`, add `align-items: center;` and watch the
    cards center **horizontally** (the cross axis in a column).
-3. Back on the grid (`class="board"`), change `minmax(180px, 1fr)` to `minmax(120px, 1fr)` — more, narrower
+3. **Play with `flex-basis`:** in the `.row .card` rule, change `flex: 1 1 180px` to `flex: 1` (basis `0`) —
+   the cards become perfectly equal widths no matter their text. Then try `flex: none` — each card shrinks to
+   just fit its own content and stops growing.
+4. **Reorder without touching HTML:** with `class="row"`, add `.row .card:last-child { order: -1; }` to
+   `styles.css` — the last card jumps to the **front** of the row, even though it's still last in the HTML.
+5. **See `wrap` vs `nowrap`:** in `.row`, change `flex-wrap: wrap` to `flex-wrap: nowrap` and drag the window
+   narrow — the cards shrink into slivers and then overflow instead of dropping to new lines. Switch it back to
+   `wrap` to restore the responsive re-flow.
+6. Back on the grid (`class="board"`), change `minmax(180px, 1fr)` to `minmax(120px, 1fr)` — more, narrower
    columns.
-4. In `.card`, add `text-align: center;` and see every card's content center.
+7. In `.card`, add `text-align: center;` and see every card's content center.
 
 <details><summary>✅ What to expect</summary>
 
 With `row`, cards sit in a spaced row that wraps on narrow screens. With `stack`, they run top-to-bottom, and
-`align-items: center` narrows and centers them horizontally. With smaller `minmax`, more columns fit per row.
+`align-items: center` narrows and centers them horizontally. `flex: 1` (basis `0`) makes every card an equal
+width regardless of content, while `flex: none` sizes each card to its own text. `order: -1` visually moves the
+last card to the front while the HTML stays put. `flex-wrap: nowrap` keeps everything on one line so cards
+shrink then overflow; `wrap` lets them re-flow onto new lines. With smaller `minmax`, more columns fit per row.
 `text-align: center` centers the card text. Flex/grid properties go on the **container**; if nothing changes,
 make sure you edited the container's class, not the `.card`.
 </details>
@@ -273,5 +385,7 @@ You can structure, style, and lay out a page. Next we zoom out to the **whole fi
 `<head>`, `<style>`, `<script>` — and a **playbook** for what's safe to change. It's the bridge into Week 4.
 
 ## 📖 Reference
+- **Interactive flexbox playground** (App Brewery): https://appbrewery.github.io/flex-layout/ — flip
+  `justify-content`, `flex-wrap`, `align-items`, and `align-content` and watch the items move in real time.
 - MDN — Flexbox: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
 - MDN — Grids: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids
