@@ -267,6 +267,41 @@ which surprises people the first time.)
 | `flex: none` | `0 0 auto` | fixed to content size; never grow or shrink |
 | `flex: 1 1 180px` | `1 1 180px` | start at 180px, then share leftover space evenly |
 
+#### The sizing ladder — who wins when several sizes disagree
+
+You can set an item's size in *four* ways, and they don't fight randomly — there's a clear pecking order.
+From **weakest to strongest** (each one overrides the ones before it):
+
+> **content width  <  `width`  <  `flex-basis`  <  `min-width` / `max-width`**
+
+Read it as: start from the content's natural size, and let each stronger rung *override* the last.
+
+1. **Content width** — with nothing specified, an item is as wide as its content needs (the text inside). This
+   is the fallback everything else builds on.
+2. **`width`** — set an explicit `width` and it **overrides** the content size: the box is that width whether
+   the content is bigger or smaller.
+3. **`flex-basis`** — inside a flex container, a `flex-basis` *length* **beats `width`** and becomes the item's
+   starting size. (`flex-basis: auto` is the one exception — it means "I have no opinion, fall back to `width`,
+   then content." That's why `auto` sits *below* a real `flex-basis` on the ladder.)
+4. **`min-width` / `max-width`** — these are the **final clamps** and win over *everything above*, including
+   `flex-basis` and even the grow/shrink math. Whatever size flexbox computes, it's then squeezed to stay
+   **≥ `min-width`** and **≤ `max-width`**. A `max-width` can shrink an item below its basis; a `min-width` can
+   hold it above, no matter how hard flex-shrink pushes.
+
+```css
+.item {
+  width: 200px;        /* rung 2 — overridden below in a flex row              */
+  flex-basis: 300px;   /* rung 3 — this wins over width → item starts at 300px */
+  max-width: 250px;    /* rung 4 — final clamp → item can never exceed 250px   */
+}
+/* Final: starts from 300px (basis), then clamped down to 250px (max-width). width:200px is ignored. */
+```
+
+> 💡 **The famous gotcha lives here.** Flex items have `min-width: auto` by default, and `auto` resolves to
+> *their content size* — a rung-4 clamp. That's why a flex item often **refuses to shrink below its content**
+> (long text or a wide image blows out the layout) even with `flex-shrink: 1`. The fix is to *lower* the clamp:
+> set `min-width: 0` on the item so shrink can actually take effect.
+
 ### 4c · `order` — rearrange items *without* touching the HTML
 
 By default flex items appear in **source order** — the order they're written in the HTML. The `order`
@@ -379,6 +414,9 @@ make sure you edited the container's class, not the `.card`.
    zero height)*
 5. Name one thing that took a hack before flex/grid and is now one property. *(gaps → `gap`, vertical centering
    → `align-items`, equal heights → automatic…)*
+6. On the sizing ladder, what beats a `flex-basis` length? *(`min-width`/`max-width` — the final clamps)*
+7. A flex item won't shrink below its long text even with `flex-shrink: 1`. Why, and the fix? *(default
+   `min-width: auto` = content size; set `min-width: 0`)*
 
 ## ➡️ Next — [04-anatomy-of-an-artifact](../04-anatomy-of-an-artifact/)
 You can structure, style, and lay out a page. Next we zoom out to the **whole file** Claude hands you —
