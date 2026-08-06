@@ -15,9 +15,14 @@
   <div class="wrap">
     <h1>Active matters</h1>
 
-    <!-- A GRID of cards. The .board rule in the CSS turns this <div> into a grid,
-         and each .card inside it becomes a grid item.
-         Change `board` to `row` here to see the FLEX version instead. -->
+    <!-- The SAME three cards appear three times below, each in a different container.
+         Only the container's class changes (.board / .row / .stack) — so any difference
+         you see is caused purely by the layout, not the content. Compare them side by side. -->
+
+    <!-- 1) GRID (.board): the .board rule turns this <div> into a GRID (rows AND columns),
+         and each .card inside becomes a grid item. This is the responsive dashboard —
+         resize the window and the columns add/drop automatically. -->
+    <h2>Grid — <code>.board</code></h2>
     <div class="board">
       <!-- Each .card is one box. <h3> is a third-level heading (smaller than h2).
            The class on a <p> (like "tag" or "amt") lets the CSS style it specially. -->
@@ -28,6 +33,25 @@
       <div class="card"><h3>M-1003</h3><p>Cedar Holdings</p><p class="tag">M&amp;A</p><p class="amt">$131,200.00</p></div>
       <div class="card"><h3>M-1005</h3><p>Everline Group</p><p class="tag">IP</p><p class="amt">$27,300.00</p></div>
       <div class="card"><h3>M-1006</h3><p>Fairhaven Ltd</p><p class="tag">Real Estate</p><p class="amt">$15,050.00</p></div>
+    </div>
+
+    <!-- 2) FLEX ROW (.row): the .row rule uses display:flex, so these cards lay out in a
+         single ROW (one dimension). flex-wrap:wrap lets them drop to a new line when the
+         window gets too narrow — that's the responsive behavior. -->
+    <h2>Flex row — <code>.row</code></h2>
+    <div class="row">
+      <div class="card"><h3>M-1002</h3><p>Brightline LLC</p><p class="tag">Litigation</p><p class="amt">$42,750.50</p></div>
+      <div class="card"><h3>M-1001</h3><p>Acme Corp</p><p class="tag">Contracts</p><p class="amt">$18,500.00</p></div>
+      <div class="card"><h3>M-1004</h3><p>Dovetail Inc</p><p class="tag">Employment</p><p class="amt">$9,800.00</p></div>
+    </div>
+
+    <!-- 3) FLEX COLUMN (.stack): same display:flex, but flex-direction:column flips the
+         main axis to vertical, so the very same cards now run TOP TO BOTTOM. -->
+    <h2>Flex column — <code>.stack</code></h2>
+    <div class="stack">
+      <div class="card"><h3>M-1002</h3><p>Brightline LLC</p><p class="tag">Litigation</p><p class="amt">$42,750.50</p></div>
+      <div class="card"><h3>M-1001</h3><p>Acme Corp</p><p class="tag">Contracts</p><p class="amt">$18,500.00</p></div>
+      <div class="card"><h3>M-1004</h3><p>Dovetail Inc</p><p class="tag">Employment</p><p class="amt">$9,800.00</p></div>
     </div>
   </div>
 
