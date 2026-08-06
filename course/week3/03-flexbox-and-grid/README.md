@@ -504,6 +504,98 @@ vertical version of what `fr` did for columns. A few more row patterns:
 > *implicit* rows grid creates automatically, `grid-auto-rows: 120px` sets their height — handy for a card
 > grid where you want every row the same height.)
 
+### 4d · Placing items across cells — `grid-column` / `grid-row` (and `grid-area`)
+
+So far every card has dropped into **one** cell automatically. But sometimes you want an item to **span
+several cells** — a "featured" card twice as wide, a header stretching the full width. You do that by telling
+the item which **grid lines** to start and end on (this is where §4a's line numbers pay off).
+
+Two longhand properties name those lines:
+
+```css
+.featured {
+  grid-column-start: 1;   /* begin at vertical grid line 1 */
+  grid-column-end:   3;   /* end at vertical grid line 3   */
+}
+/* → the item now covers the two cells between lines 1 and 3 */
+```
+
+Remember: **lines**, not columns. In a 3-column grid the lines are 1–4, so `start: 1` / `end: 3` spans the
+first *two* columns (line 1 → line 3).
+
+The **vertical** direction has an identical pair, **`grid-row-start`** / **`grid-row-end`**, that works off the
+**horizontal** grid lines the same way:
+
+```css
+.tall {
+  grid-row-start: 1;   /* begin at horizontal grid line 1 */
+  grid-row-end:   3;   /* end at horizontal grid line 3   */
+}
+/* → the item now spans the two rows between lines 1 and 3 (twice as tall) */
+```
+
+Use the two pairs **together** to place an item into a specific rectangle of cells — e.g. columns 1→3 *and*
+rows 1→3 makes a 2×2 block in the top-left corner.
+
+**The per-axis shorthands** collapse each pair into `start / end`:
+
+```css
+.featured {
+  grid-column: 1 / 3;   /* = grid-column-start: 1; grid-column-end: 3; */
+  grid-row:    1 / 3;   /* = grid-row-start: 1;    grid-row-end: 3;    */
+}
+```
+
+**`grid-area` — the all-in-one shorthand.** One property sets **all four** lines at once. The order is
+`row-start / column-start / row-end / column-end` (row values first, "top / left / bottom / right"):
+
+```css
+.featured {
+  grid-area: 1 / 1 / 3 / 3;   /* rows 1→3, columns 1→3 → the 2×2 top-left block */
+  /* identical to:
+     grid-row-start: 1; grid-column-start: 1; grid-row-end: 3; grid-column-end: 3; */
+}
+```
+
+So there are three levels of the same idea — pick whichever reads best:
+
+| Level | Example | Sets |
+|---|---|---|
+| Longhand (4 props) | `grid-row-start: 1; grid-column-start: 1; …` | one line each |
+| Per-axis shorthand | `grid-column: 1 / 3;` + `grid-row: 1 / 3;` | one axis each |
+| `grid-area` | `grid-area: 1 / 1 / 3 / 3;` | **all four** lines |
+
+> ⚠️ **Watch the order.** `grid-area`'s four numbers are `row-start / col-start / row-end / col-end` — rows
+> first, *not* the "column then row" order you might expect from writing `grid-column` before `grid-row`. When
+> in doubt, the per-axis `grid-column` / `grid-row` pair is harder to get wrong. *(`grid-area` can also take a
+> **named** area instead of line numbers — that pairs with `grid-template-areas`, a nice next step once you're
+> comfortable here.)*
+
+**`span` — count instead of counting lines.** If you don't want to work out the end line, say how many tracks
+to cover with the `span` keyword:
+
+```css
+.featured { grid-column: 1 / span 2; }  /* start at line 1, cover 2 columns */
+.wide     { grid-column: span 2; }      /* cover 2 columns from wherever I land */
+```
+
+| Declaration | Meaning |
+|---|---|
+| `grid-column: 1 / 3` | start at line 1, end at line 3 → spans **2** columns |
+| `grid-column: 1 / span 2` | start at line 1, span **2** columns (same result) |
+| `grid-column: span 2` | span 2 columns starting at the item's natural spot |
+| `grid-column: 1 / -1` | line 1 to the **last** line → span the **full width** (`-1` counts from the end) |
+
+> 💡 **The full-width trick:** `grid-column: 1 / -1` makes an item stretch across **every** column no matter
+> how many there are — perfect for a section header or a "no results" row sitting above a card grid.
+
+### Where flexbox does this instead
+
+Flexbox has no line-based placement — items just flow along the one axis. Its nearest equivalents are
+**`order`** (§3c) to move an item and **`flex-basis`/`flex-grow`** (§3b) to size it. Precise "start here, span
+that many cells" placement is a **grid-only** superpower, and the main reason to reach for grid over flex when
+a layout is genuinely 2-D.
+
 ---
 
 ## ✍️ Your turn
@@ -528,7 +620,10 @@ vertical version of what `fr` did for columns. A few more row patterns:
    columns.
 8. **Set row heights:** on `.board`, add `grid-auto-rows: 140px;` — every card row becomes the same height,
    even cards with less text. That's `grid-template-rows`' idea applied to the rows grid makes automatically.
-9. In `.card`, add `text-align: center;` and see every card's content center.
+9. **Span an item across cells:** add `.board .card:first-child { grid-column: 1 / -1; }` to `styles.css` — the
+   first card now stretches across **every** column (a full-width banner) while the rest stay in the grid. Try
+   `grid-column: span 2;` instead to make it cover just two columns.
+10. In `.card`, add `text-align: center;` and see every card's content center.
 
 <details><summary>✅ What to expect</summary>
 
@@ -538,9 +633,10 @@ width regardless of content, while `flex: none` sizes each card to its own text.
 last card to the front while the HTML stays put. `flex-wrap: nowrap` keeps everything on one line so cards
 shrink then overflow; `wrap` lets them re-flow onto new lines. `2fr 1fr 1fr` makes the first column twice as
 wide as the others (a fixed 1:2 ratio); `250px 1fr` pins a sidebar and lets the rest flex. With smaller
-`minmax`, more columns fit per row. `grid-auto-rows: 140px` makes every card row the same height. `text-align:
-center` centers the card text. Flex/grid properties go on the **container**; if nothing changes, make sure you
-edited the container's class, not the `.card`.
+`minmax`, more columns fit per row. `grid-auto-rows: 140px` makes every card row the same height.
+`grid-column: 1 / -1` on the first card makes it span the full width (a banner); `span 2` covers two columns.
+`text-align: center` centers the card text. Flex/grid properties go on the **container** (except item-placement
+like `grid-column`, which goes on the **item**); if nothing changes, make sure you edited the right class.
 </details>
 
 ## 📝 Recap
@@ -568,6 +664,8 @@ edited the container's class, not the `.card`.
    you want to set them yourself instead of the content-sized rows grid makes automatically)*
 10. A grid has 4 columns. How many vertical **grid lines** does it have, and what's a **cell**? *(5 lines —
     N tracks ⇒ N+1 lines; a cell is one row × one column, the smallest box)*
+11. What does `grid-column: 1 / -1` do, and what's the longhand for `grid-column: 1 / 3`? *(spans the full
+    width — line 1 to the last line; longhand is `grid-column-start: 1; grid-column-end: 3`)*
 
 ## ➡️ Next — [04-anatomy-of-an-artifact](../04-anatomy-of-an-artifact/)
 You can structure, style, and lay out a page. Next we zoom out to the **whole file** Claude hands you —
