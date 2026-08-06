@@ -25,6 +25,24 @@ Almost every Claude dashboard is *"a row of stat cards"* or *"a grid of panels."
 **grid**. Once you can read `display: flex`, you can rearrange the pieces of any artifact — the difference
 between "I can recolor it" and "I can restructure it into what we need."
 
+> 🐼 **Coming from NumPy & pandas? Here's the shortcut.** You already learned this shape in Weeks 1–2 — it's
+> the **1-D vs 2-D** distinction, just for layout instead of data:
+>
+> | Weeks 1–2 (data) | This week (layout) | Shape |
+> |---|---|---|
+> | A **1-D NumPy array** / a pandas **Series** — one axis | **Flexbox** — items along one axis (a row *or* a column) | **1-D** |
+> | A **2-D DataFrame** — rows **and** columns | **CSS Grid** — cells in rows **and** columns | **2-D** |
+>
+> And the **axis** idea carries straight over. In pandas you pick a direction with `axis=0` (down the rows) or
+> `axis=1` (across the columns); in flexbox you pick the **main axis** with `flex-direction: column` or `row`,
+> and `justify-content` acts *along* that axis — just like a pandas operation runs along the axis you name.
+> A DataFrame's **index (rows)** and **columns** are literally `grid-template-rows` and
+> `grid-template-columns`.
+>
+> *(Where the analogy stops:* pandas is *built on top of* NumPy; CSS Grid is **not** built on flexbox — they're
+> two independent, sibling layout systems. The useful part is the **1-D-vs-2-D / axis** intuition, not a
+> layering.)*
+
 ---
 
 ## 1 · Normal flow (the default)
@@ -184,6 +202,15 @@ Look at `.board` in `styles.css`:
 This one line is the famous "responsive grid," and it's what most Claude dashboards use.
 
 ## 4 · Flexbox — a single row
+
+> 📐 **Why is layout "flexible" at all?** Because the browser can't know two things in advance: the **screen**
+> (a 375px phone? a 4K monitor? a window dragged to any width?) and the **content** (client names, and *how
+> many* matters, come from a database). Print design had a fixed page; the web doesn't. So instead of hard-coding
+> a `width`, you write **rules that adapt** — *grow* into extra space, *shrink* when cramped, *wrap* to a new
+> line when there's no room. Flexbox is exactly that: you describe the behavior, the browser computes the pixels
+> for whatever screen and content actually show up. (`min-width`/`max-width` then keep that flexibility from
+> going to unreadable extremes.) That shift — **from a fixed layout to a system that adapts** — is the whole
+> mindset of responsive design.
 
 > 🎛️ **Play with it live:** the [App Brewery flexbox playground](https://appbrewery.github.io/flex-layout/)
 > lets you toggle `justify-content`, `flex-wrap`, `align-items`, and `align-content` and watch the boxes rearrange
