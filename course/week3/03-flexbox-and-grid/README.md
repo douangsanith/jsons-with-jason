@@ -398,7 +398,44 @@ Look at `.board` in `styles.css`:
 
 This one line is the famous "responsive grid," and it's what most Claude dashboards use.
 
-### 4a · The `fr` unit — fractional ratios (`1fr`, `2fr`, …)
+### 4a · The grid vocabulary: rows, columns, tracks & cells
+
+Grid has a small, spreadsheet-like vocabulary. Learn these five words and the rest of grid reads easily. In the
+map below, the numbers `①②③④` are the **grid lines**, the boxes are **cells**, and one shaded lane is a **track**:
+
+```
+   column lines →  ①        ②        ③        ④
+                   ┌────────┬────────┬────────┐
+   row line ① →    │  cell  │  cell  │  cell  │   ← row track 1
+                   ├────────┼────────┼────────┤
+   row line ② →    │  cell  │  cell  │  cell  │   ← row track 2
+                   └────────┴────────┴────────┘
+                   └── column track 1 ──┘
+                        (gap = the space between two tracks)
+```
+
+- **Column** — a **vertical** lane of cells. `grid-template-columns` defines the columns (how many, how wide).
+- **Row** — a **horizontal** lane of cells. `grid-template-rows` defines the rows (how many, how tall).
+- **Track** — the general word for **one row *or* one column** — a single lane. When you write
+  `grid-template-columns: 1fr 1fr 1fr`, you're creating and sizing **three column tracks**; `2fr 1fr` is two.
+  "Track" is just what you call a row or column when you don't care which direction you mean.
+- **Grid line** — the **numbered dividing lines** *between and around* the tracks. A grid with 3 columns has
+  **4** vertical grid lines (①–④): line ① is the left edge, line ④ the right. Lines are how you place an item
+  precisely — e.g. `grid-column: 1 / 3` means "span **from line 1 to line 3**" (covering the first two cells).
+  Counting trips people up: **N tracks always have N + 1 lines.**
+- **Cell** — the **intersection of one row and one column**: the smallest box in the grid, exactly like a
+  spreadsheet cell. By default, each grid item (each `.card`) flows into the next available cell.
+
+> 🧩 **How it fits together:** **grid lines** frame the **tracks** (rows and columns) you size with
+> `grid-template-*`; the tracks cross to form **cells**; your items land in the cells; and **`gap`** is the
+> spacing *between* tracks. In `.board`, `repeat(auto-fit, minmax(180px, 1fr))` makes a **variable number of
+> column tracks**, grid adds as many **row tracks** as it needs, and each card sits in one **cell**.
+
+> 🔬 **See it colored-in, live:** open [`grid-anatomy.html`](grid-anatomy.html) in your browser — it renders a
+> real grid with the **grid lines numbered**, one **column track** and one **row track** highlighted, a single
+> **cell** called out, and the **gaps** shaded, so every term above has a picture.
+
+### 4b · The `fr` unit — fractional ratios (`1fr`, `2fr`, …)
 
 That `1fr` is a unit you haven't seen before. **`fr` = "fraction of the leftover space."** Unlike `px` (a
 fixed size) or `%` (a fraction of the *parent*), `fr` splits up **whatever space is left** after fixed sizes
@@ -429,7 +466,7 @@ column can grow to fill its share of leftover space, but never gets narrower tha
 > column with `2fr` next to `1fr` takes twice the leftover space — just like an item with `flex-grow: 2` next
 > to `flex-grow: 1`. Same "shares of what's left" concept, one for grid columns, one for flex items.
 
-### 4b · `grid-template-rows` — the *other* axis
+### 4c · `grid-template-rows` — the *other* axis
 
 `grid-template-columns` sizes the **columns** (the horizontal tracks). Its twin, **`grid-template-rows`**,
 sizes the **rows** (the vertical tracks) — same syntax, same units (`px`, `fr`, `auto`, `minmax`, `repeat`),
@@ -529,6 +566,8 @@ edited the container's class, not the `.card`.
    ratio of leftover space)*
 9. What does `grid-template-rows` control, and when do you need it? *(the row heights / vertical tracks — when
    you want to set them yourself instead of the content-sized rows grid makes automatically)*
+10. A grid has 4 columns. How many vertical **grid lines** does it have, and what's a **cell**? *(5 lines —
+    N tracks ⇒ N+1 lines; a cell is one row × one column, the smallest box)*
 
 ## ➡️ Next — [04-anatomy-of-an-artifact](../04-anatomy-of-an-artifact/)
 You can structure, style, and lay out a page. Next we zoom out to the **whole file** Claude hands you —
