@@ -14,6 +14,8 @@
   padding: 0 16px;                /* a little breathing room on the sides */
 }
 .wrap h1 { color: #1e3a8a; font-size: 22px; }
+/* Small blue label above each demo (Grid / Flex row / Flex column). */
+.wrap h2 { color: #1e3a8a; font-size: 15px; margin: 26px 0 8px; }
 
 /* ---- A single card (the box we lay out) ---- */
 .card {
@@ -60,3 +62,19 @@
 /* flex: 1 1 180px = grow / shrink / ideal-width. Each card starts at ~180px,
    can grow to share extra space, and can shrink if space is tight. */
 .row .card { flex: 1 1 180px; }
+
+/* ---- FLEX-DIRECTION: the SAME flex container, but stacked as a COLUMN.
+   Swap `board` -> `stack` in the HTML to run the cards top-to-bottom.
+
+   display: flex still means "lay children out along one axis" — but
+   flex-direction: column flips that axis from horizontal (the default row)
+   to vertical. Key gotcha: once it's a column, the MAIN axis is vertical, so
+     · justify-content  now spaces the cards UP/DOWN (along the column)
+     · align-items      now aligns them LEFT/RIGHT (the cross axis)
+   align-items: stretch (the default) makes each card fill the full width. */
+.stack {
+  display: flex;
+  flex-direction: column;   /* ↓ top to bottom instead of the default row */
+  gap: 12px;                /* space BETWEEN the stacked cards */
+  align-items: stretch;     /* cross axis = horizontal → cards fill the width */
+}

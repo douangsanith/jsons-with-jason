@@ -8,6 +8,7 @@
   padding: 0 16px;
 }
 .wrap h1 { color: #1e3a8a; font-size: 22px; }
+.wrap h2 { color: #1e3a8a; font-size: 15px; margin: 26px 0 8px; }   /* labels the demos below */
 
 /* ---- A single card (the box we lay out) ---- */
 .card {

@@ -9,7 +9,7 @@
 > cards re-flow. That's responsive layout.
 
 > 📝 **Learning copies:** [`index.annotated.html`](index.annotated.html) and
-> [`styles.annotated.css`](styles.annotated.css) explain grid vs. flex line by line (what `auto-fit`, `minmax`,
+> [`styles.annotated.css`](styles.annotated.css) explain flex vs. grid line by line (what `auto-fit`, `minmax`,
 > and `flex: 1 1 180px` mean). Read those to learn; use the clean files to build.
 
 ---
@@ -172,36 +172,7 @@ the container real layout powers, so the things that took hacks before are now o
 Keep this table in mind as you read the next two sections — every "one line" on the right replaced a paragraph
 of hacks on the left.
 
-## 3 · Grid — rows and columns (what's in the file)
-
-> 🏞️ **A grid you've held in your hands.** If you've ever picked up a **US National Park brochure**, you've
-> used a grid system. In 1977 the designer **Massimo Vignelli** gave the National Park Service the *Unigrid
-> System*: one modular grid — fixed columns, consistent gaps, a black title band — that every park's brochure
-> snaps into. Yellowstone, the Everglades, and a tiny historic site all look like one family because their
-> content is poured into the **same underlying grid**, just arranged differently. That's *exactly* what CSS
-> Grid does: you define the columns and gaps once (the `.board` rule below), and every card "snaps" into the
-> structure. **The blueprint:** [NPS Unigrid design specifications (PDF)](https://npshistory.com/brochures/unigrid.pdf)
-> — the literal spec sheet — and an [overview of the Unigrid system](https://en.wikipedia.org/wiki/Unigrids).
-> Keep it in mind as you read: `grid-template-columns` *is* your Unigrid.
-
-Look at `.board` in `styles.css`:
-
-```css
-.board {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-}
-```
-
-- `display: grid` turns the container into a grid.
-- `repeat(auto-fit, minmax(180px, 1fr))` = "fit as many **~180px** columns as will fit; each grows to share
-  leftover space (`1fr`)." Add cards or resize the window and it re-flows automatically.
-- `gap` spaces the cards.
-
-This one line is the famous "responsive grid," and it's what most Claude dashboards use.
-
-## 4 · Flexbox — a single row
+## 3 · Flexbox — a single row
 
 > 📐 **Why is layout "flexible" at all?** Because the browser can't know two things in advance: the **screen**
 > (a 375px phone? a 4K monitor? a window dragged to any width?) and the **content** (client names, and *how
@@ -216,7 +187,8 @@ This one line is the famous "responsive grid," and it's what most Claude dashboa
 > lets you toggle `justify-content`, `flex-wrap`, `align-items`, and `align-content` and watch the boxes rearrange
 > instantly — the fastest way to build intuition for the properties below.
 
-`styles.css` also has a `.row` rule (unused until you switch to it):
+`styles.css` also has a `.row` rule — the page's **second demo** (below the grid) uses it, so you can see the
+same cards as a flex row:
 
 ```css
 .row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
@@ -228,7 +200,7 @@ This one line is the famous "responsive grid," and it's what most Claude dashboa
 - `flex-wrap: wrap` lets items drop to a new line instead of overflowing.
 - `flex: 1 1 180px` = grow, shrink, ideal width 180px.
 
-### 4a · `flex-direction` — row *or* column
+### 3a · `flex-direction` — row *or* column
 
 `display: flex` defaults to a **row** (left → right), but that's just the default. One property,
 `flex-direction`, flips the axis — this is the "or column" half of flexbox:
@@ -240,8 +212,8 @@ This one line is the famous "responsive grid," and it's what most Claude dashboa
 .stack-r{ display: flex; flex-direction: column-reverse; } /* ↑ bottom to top          */
 ```
 
-`styles.css` has a ready-to-try `.stack` (column) version — swap `class="board"` for `class="stack"` in
-`index.html` and the cards run **top to bottom** instead of across.
+`styles.css` has a `.stack` (column) version — the page's **third demo** uses it, so you can see the very same
+cards run **top to bottom** instead of across, right below the row.
 
 **The key idea — main axis vs cross axis.** Flex has two axes, and `flex-direction` decides which is which:
 
@@ -256,7 +228,7 @@ because it always follows the main axis. This trips everyone up once; after that
 > **Gotcha:** `...-reverse` only flips *visual* order, not the HTML/DOM order — so keyboard and screen-reader
 > users still move through the original source order. Use it for looks, not to fix real ordering.
 
-### 4b · `flex-basis` — the *starting size* before growing or shrinking
+### 3b · `flex-basis` — the *starting size* before growing or shrinking
 
 Remember `flex: 1 1 180px` on the cards? That's shorthand for **three** properties, and the last one is the
 one people skip over:
@@ -329,7 +301,7 @@ Read it as: start from the content's natural size, and let each stronger rung *o
 > (long text or a wide image blows out the layout) even with `flex-shrink: 1`. The fix is to *lower* the clamp:
 > set `min-width: 0` on the item so shrink can actually take effect.
 
-### 4c · `order` — rearrange items *without* touching the HTML
+### 3c · `order` — rearrange items *without* touching the HTML
 
 By default flex items appear in **source order** — the order they're written in the HTML. The `order`
 property lets you override that *visually* without moving a single line of markup:
@@ -361,7 +333,7 @@ while CSS arranges it for *looks* — and you can even flip that arrangement res
 **`order` vs `flex-direction: ...-reverse`:** `-reverse` flips *all* items at once; `order` repositions
 *specific* items (or a few) precisely. Reach for `order` when only one or two things need to move.
 
-### 4d · `flex-wrap` — `wrap` vs `nowrap` (does the row break onto new lines?)
+### 3d · `flex-wrap` — `wrap` vs `nowrap` (does the row break onto new lines?)
 
 `flex-wrap` decides what happens when the items don't all fit on one line:
 
@@ -386,22 +358,124 @@ cards shrink and then overflow. That single word is the difference between "resp
 > size; add more lines as needed." (There's also `wrap-reverse`, which wraps *upward* — rarely needed.)
 >
 > Note this is a **1-D** kind of wrapping. If you want a true 2-D grid where items align into neat rows **and**
-> columns, that's what **CSS Grid** (section 3) is for.
+> columns, that's what **CSS Grid** (section 4) is for.
 
 **Flex is for one dimension (a row *or* column); grid is for two (rows *and* columns).**
 
 > **Legal analogy:** flex is arranging exhibits **side by side on a table**; grid is a **full page layout**
 > with rows and columns.
 
+> 🔀 **See them head-to-head:** the [App Brewery grid-vs-flexbox tool](https://appbrewery.github.io/grid-vs-flexbox/)
+> shows the same content laid out both ways, so you can feel *when* the 1-D flex model or the 2-D grid model is
+> the right pick.
+
+## 4 · Grid — rows and columns (what's in the file)
+
+> 🏞️ **A grid you've held in your hands.** If you've ever picked up a **US National Park brochure**, you've
+> used a grid system. In 1977 the designer **Massimo Vignelli** gave the National Park Service the *Unigrid
+> System*: one modular grid — fixed columns, consistent gaps, a black title band — that every park's brochure
+> snaps into. Yellowstone, the Everglades, and a tiny historic site all look like one family because their
+> content is poured into the **same underlying grid**, just arranged differently. That's *exactly* what CSS
+> Grid does: you define the columns and gaps once (the `.board` rule below), and every card "snaps" into the
+> structure. **The blueprint:** [NPS Unigrid design specifications (PDF)](https://npshistory.com/brochures/unigrid.pdf)
+> — the literal spec sheet — and an [overview of the Unigrid system](https://en.wikipedia.org/wiki/Unigrids).
+> Keep it in mind as you read: `grid-template-columns` *is* your Unigrid.
+
+Look at `.board` in `styles.css`:
+
+```css
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+```
+
+- `display: grid` turns the container into a grid.
+- `repeat(auto-fit, minmax(180px, 1fr))` = "fit as many **~180px** columns as will fit; each grows to share
+  leftover space (`1fr`)." Add cards or resize the window and it re-flows automatically.
+- `gap` spaces the cards.
+
+This one line is the famous "responsive grid," and it's what most Claude dashboards use.
+
+### 4a · The `fr` unit — fractional ratios (`1fr`, `2fr`, …)
+
+That `1fr` is a unit you haven't seen before. **`fr` = "fraction of the leftover space."** Unlike `px` (a
+fixed size) or `%` (a fraction of the *parent*), `fr` splits up **whatever space is left** after fixed sizes
+and gaps are subtracted — and the **numbers are just a ratio**.
+
+```css
+/* Three columns that split the row 1 : 2 : 1 */
+grid-template-columns: 1fr 2fr 1fr;
+```
+
+Here the space is divided into `1 + 2 + 1 = 4` shares: the middle column gets **2 shares (twice as wide)**,
+the outer two get **1 share each**. So `2fr` isn't "2 pixels" or "200px" — it's **twice as wide as a `1fr`**,
+whatever the screen size. Resize the window and the *ratio* stays 1:2:1 while the actual pixels change. A few
+reads:
+
+| `grid-template-columns` | Meaning |
+|---|---|
+| `1fr 1fr 1fr` | three **equal** columns (same as `repeat(3, 1fr)`) |
+| `2fr 1fr` | two columns, the first **twice as wide** as the second |
+| `1fr 1fr 1fr 1fr` | four equal columns — the classic 12-col grid is just `fr` shares |
+| `250px 1fr` | a **fixed** 250px sidebar + a column that takes **all the rest** |
+
+That last row is the everyday power move: mix a fixed `px` with `fr`, and `fr` absorbs whatever's left — no
+math, no percentages that don't quite add up. (In `minmax(180px, 1fr)`, the `1fr` is doing exactly this: each
+column can grow to fill its share of leftover space, but never gets narrower than 180px.)
+
+> 🔗 **You already met this idea in flexbox.** `fr` ratios are the grid twin of **`flex-grow`** ratios: a
+> column with `2fr` next to `1fr` takes twice the leftover space — just like an item with `flex-grow: 2` next
+> to `flex-grow: 1`. Same "shares of what's left" concept, one for grid columns, one for flex items.
+
+### 4b · `grid-template-rows` — the *other* axis
+
+`grid-template-columns` sizes the **columns** (the horizontal tracks). Its twin, **`grid-template-rows`**,
+sizes the **rows** (the vertical tracks) — same syntax, same units (`px`, `fr`, `auto`, `minmax`, `repeat`),
+just the up/down direction.
+
+You may have noticed `.board` never sets rows and still works. That's because grid **auto-creates rows** for
+you as content wraps — these are *implicit* rows, sized to their content. You only reach for
+`grid-template-rows` when you want to **control the heights** yourself. The classic case is a whole-page
+"app shell":
+
+```css
+.app {
+  display: grid;
+  grid-template-rows: 60px 1fr 40px;   /* header | main | footer */
+  min-height: 100vh;                   /* fill the screen top to bottom */
+}
+```
+
+- `60px` — a fixed-height **header** row.
+- `1fr` — the **main** area takes *all the leftover vertical space* (same `fr` idea, now vertical).
+- `40px` — a fixed-height **footer** row.
+
+Resize the window taller/shorter and the header and footer stay put while the middle grows or shrinks — the
+vertical version of what `fr` did for columns. A few more row patterns:
+
+| `grid-template-rows` | Meaning |
+|---|---|
+| `100px 100px` | two rows, each exactly 100px tall |
+| `auto 1fr auto` | header & footer hug their content; middle fills the rest |
+| `repeat(3, 1fr)` | three equal-height rows |
+| `minmax(80px, auto)` | a row at least 80px tall that can grow with its content |
+
+> 💡 **Rows and columns together = true 2-D.** Setting *both* `grid-template-columns` and
+> `grid-template-rows` is what makes grid two-dimensional — you're defining a real matrix of cells. (For the
+> *implicit* rows grid creates automatically, `grid-auto-rows: 120px` sets their height — handy for a card
+> grid where you want every row the same height.)
+
 ---
 
 ## ✍️ Your turn
 
-1. **Switch grid → flex:** in `index.html`, change `<div class="board">` to `<div class="row">`, save,
-   refresh. Same cards, laid out by flexbox. Resize the window to see wrapping.
-2. **Switch row → column:** change `class="board"` to `class="stack"` — the same cards now run **top to
-   bottom**. That's `flex-direction: column`. Then, in `.stack`, add `align-items: center;` and watch the
-   cards center **horizontally** (the cross axis in a column).
+1. **Compare the three layouts:** the page already shows the same cards as a **grid**, a **flex row**, and a
+   **flex column**. Open `index.html`, then drag the window narrow and watch the grid and the row re-flow while
+   the column just stays stacked.
+2. **Center in the column:** in the `.stack` rule, add `align-items: center;` and watch the cards center
+   **horizontally** — the cross axis in a column.
 3. **Play with `flex-basis`:** in the `.row .card` rule, change `flex: 1 1 180px` to `flex: 1` (basis `0`) —
    the cards become perfectly equal widths no matter their text. Then try `flex: none` — each card shrinks to
    just fit its own content and stops growing.
@@ -410,9 +484,14 @@ cards shrink and then overflow. That single word is the difference between "resp
 5. **See `wrap` vs `nowrap`:** in `.row`, change `flex-wrap: wrap` to `flex-wrap: nowrap` and drag the window
    narrow — the cards shrink into slivers and then overflow instead of dropping to new lines. Switch it back to
    `wrap` to restore the responsive re-flow.
-6. Back on the grid (`class="board"`), change `minmax(180px, 1fr)` to `minmax(120px, 1fr)` — more, narrower
+6. **Try `fr` ratios:** on `.board`, replace the whole `grid-template-columns` value with `2fr 1fr 1fr` — the
+   first column becomes **twice as wide** as the other two, and the ratio holds as you resize. Then try
+   `250px 1fr` for a fixed sidebar + a flexible main column.
+7. Back on the grid (`class="board"`), change `minmax(180px, 1fr)` to `minmax(120px, 1fr)` — more, narrower
    columns.
-7. In `.card`, add `text-align: center;` and see every card's content center.
+8. **Set row heights:** on `.board`, add `grid-auto-rows: 140px;` — every card row becomes the same height,
+   even cards with less text. That's `grid-template-rows`' idea applied to the rows grid makes automatically.
+9. In `.card`, add `text-align: center;` and see every card's content center.
 
 <details><summary>✅ What to expect</summary>
 
@@ -420,9 +499,11 @@ With `row`, cards sit in a spaced row that wraps on narrow screens. With `stack`
 `align-items: center` narrows and centers them horizontally. `flex: 1` (basis `0`) makes every card an equal
 width regardless of content, while `flex: none` sizes each card to its own text. `order: -1` visually moves the
 last card to the front while the HTML stays put. `flex-wrap: nowrap` keeps everything on one line so cards
-shrink then overflow; `wrap` lets them re-flow onto new lines. With smaller `minmax`, more columns fit per row.
-`text-align: center` centers the card text. Flex/grid properties go on the **container**; if nothing changes,
-make sure you edited the container's class, not the `.card`.
+shrink then overflow; `wrap` lets them re-flow onto new lines. `2fr 1fr 1fr` makes the first column twice as
+wide as the others (a fixed 1:2 ratio); `250px 1fr` pins a sidebar and lets the rest flex. With smaller
+`minmax`, more columns fit per row. `grid-auto-rows: 140px` makes every card row the same height. `text-align:
+center` centers the card text. Flex/grid properties go on the **container**; if nothing changes, make sure you
+edited the container's class, not the `.card`.
 </details>
 
 ## 📝 Recap
@@ -444,6 +525,10 @@ make sure you edited the container's class, not the `.card`.
 6. On the sizing ladder, what beats a `flex-basis` length? *(`min-width`/`max-width` — the final clamps)*
 7. A flex item won't shrink below its long text even with `flex-shrink: 1`. Why, and the fix? *(default
    `min-width: auto` = content size; set `min-width: 0`)*
+8. In `grid-template-columns: 2fr 1fr`, how wide is the first column vs the second? *(twice as wide — `fr` is a
+   ratio of leftover space)*
+9. What does `grid-template-rows` control, and when do you need it? *(the row heights / vertical tracks — when
+   you want to set them yourself instead of the content-sized rows grid makes automatically)*
 
 ## ➡️ Next — [04-anatomy-of-an-artifact](../04-anatomy-of-an-artifact/)
 You can structure, style, and lay out a page. Next we zoom out to the **whole file** Claude hands you —
@@ -452,5 +537,7 @@ You can structure, style, and lay out a page. Next we zoom out to the **whole fi
 ## 📖 Reference
 - **Interactive flexbox playground** (App Brewery): https://appbrewery.github.io/flex-layout/ — flip
   `justify-content`, `flex-wrap`, `align-items`, and `align-content` and watch the items move in real time.
+- **Grid vs flexbox, side by side** (App Brewery): https://appbrewery.github.io/grid-vs-flexbox/ — the same
+  content laid out both ways, to build intuition for when each is the right tool.
 - MDN — Flexbox: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
 - MDN — Grids: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids
