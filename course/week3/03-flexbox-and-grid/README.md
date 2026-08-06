@@ -156,6 +156,16 @@ of hacks on the left.
 
 ## 3 · Grid — rows and columns (what's in the file)
 
+> 🏞️ **A grid you've held in your hands.** If you've ever picked up a **US National Park brochure**, you've
+> used a grid system. In 1977 the designer **Massimo Vignelli** gave the National Park Service the *Unigrid
+> System*: one modular grid — fixed columns, consistent gaps, a black title band — that every park's brochure
+> snaps into. Yellowstone, the Everglades, and a tiny historic site all look like one family because their
+> content is poured into the **same underlying grid**, just arranged differently. That's *exactly* what CSS
+> Grid does: you define the columns and gaps once (the `.board` rule below), and every card "snaps" into the
+> structure. **The blueprint:** [NPS Unigrid design specifications (PDF)](https://npshistory.com/brochures/unigrid.pdf)
+> — the literal spec sheet — and an [overview of the Unigrid system](https://en.wikipedia.org/wiki/Unigrids).
+> Keep it in mind as you read: `grid-template-columns` *is* your Unigrid.
+
 Look at `.board` in `styles.css`:
 
 ```css
