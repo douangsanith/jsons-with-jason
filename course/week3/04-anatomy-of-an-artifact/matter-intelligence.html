@@ -14,7 +14,47 @@
     }
     h1 { color: #1e3a8a; font-size: 22px; margin: 0 0 4px 0; }
     .subtitle { color: #6b7280; margin-top: 0; }
-    .toolbar { margin: 12px 0; }
+
+    /* FLEXBOX (Day 3) — a one-dimensional row. The title sits on the left and the
+       badge on the right; space-between pushes them apart, align-items centers them. */
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;            /* on a narrow screen the badge drops below the title */
+    }
+    .badge {
+      background: #eef2ff; color: #3730a3;
+      padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* GRID (Day 3) — rows AND columns, responsive in one line.
+       auto-fit + minmax = "as many ~150px columns as fit; each grows to share space." */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .stat {
+      border: 1px solid #e5e7eb; border-radius: 10px;
+      padding: 12px 14px; background: #f9fafb;
+    }
+    .stat .label { color: #6b7280; font-size: 12px; margin: 0; }
+    .stat .value { color: #1e3a8a; font-size: 20px; font-weight: 700; margin: 4px 0 0; }
+
+    /* FLEXBOX (Day 3) — a second row: label on the left, button on the right. */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    .toolbar .hint { color: #6b7280; font-size: 13px; margin: 0; }
     button { font: inherit; padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; cursor: pointer; }
     table { border-collapse: collapse; width: 100%; }
     th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eef2f7; }
@@ -26,12 +66,24 @@
 <body>
   <!-- ========= BODY: everything the visitor sees ========= -->
   <div class="card">
-    <header>
-      <h1>Matter Intelligence</h1>
-      <p class="subtitle"><span id="count">4</span> matters shown.</p>
+    <header class="page-head">
+      <div>
+        <h1>Matter Intelligence</h1>
+        <p class="subtitle"><span id="count">4</span> matters shown.</p>
+      </div>
+      <span class="badge">Q3 · synthetic data</span>
     </header>
 
+    <!-- GRID: a responsive row of summary tiles. The script keeps these in sync. -->
+    <section class="stats" aria-label="Summary">
+      <div class="stat"><p class="label">Matters shown</p><p class="value" id="stat-count">4</p></div>
+      <div class="stat"><p class="label">Total billed</p><p class="value" id="stat-billed">$202,250.50</p></div>
+      <div class="stat"><p class="label">Practice areas</p><p class="value" id="stat-areas">4</p></div>
+      <div class="stat"><p class="label">Largest matter</p><p class="value" id="stat-max">$131,200.00</p></div>
+    </section>
+
     <div class="toolbar">
+      <p class="hint">Toggle the filter — the tiles above recalculate.</p>
       <button id="toggle">Show active only</button>
     </div>
 
@@ -52,21 +104,37 @@
 
   <!-- ========= SCRIPT: all behavior is inlined here ========= -->
   <script>
-    // A tiny bit of JavaScript (Week 4's topic). It filters the table to active matters.
+    // A tiny bit of JavaScript (Week 4's topic). It filters the table to active
+    // matters AND recomputes the summary tiles from whatever rows are visible.
     const rows = () => Array.from(document.querySelectorAll('#matters tbody tr'));
     const countEl = document.getElementById('count');
+    const money = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     let activeOnly = false;
+
+    // Read the "Billed" cell of a row back into a number ("$42,750.50" -> 42750.5).
+    const billedOf = tr => Number(tr.cells[3].textContent.replace(/[$,]/g, ''));
+
+    // Recalculate the grid of stat tiles from the currently visible rows.
+    function updateStats(visibleRows) {
+      const billed = visibleRows.map(billedOf);
+      const areas = new Set(visibleRows.map(tr => tr.cells[2].textContent));
+      document.getElementById('stat-count').textContent = visibleRows.length;
+      document.getElementById('stat-billed').textContent = money(billed.reduce((a, b) => a + b, 0));
+      document.getElementById('stat-areas').textContent = areas.size;
+      document.getElementById('stat-max').textContent = billed.length ? money(Math.max(...billed)) : '$0.00';
+    }
 
     document.getElementById('toggle').addEventListener('click', () => {
       activeOnly = !activeOnly;
-      let shown = 0;
+      const visible = [];
       rows().forEach(tr => {
         const isActive = tr.getAttribute('data-active') === 'true';
-        const visible = !activeOnly || isActive;
-        tr.style.display = visible ? '' : 'none';
-        if (visible) shown++;
+        const show = !activeOnly || isActive;
+        tr.style.display = show ? '' : 'none';
+        if (show) visible.push(tr);
       });
-      countEl.textContent = shown;
+      countEl.textContent = visible.length;
+      updateStats(visible);
       document.getElementById('toggle').textContent = activeOnly ? 'Show all' : 'Show active only';
     });
   </script>
