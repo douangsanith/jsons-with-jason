@@ -119,10 +119,10 @@ button stops working, you likely broke a quote or removed a `;` in the `<script>
 2. What makes an artifact "self-contained"?
 3. From the playbook, which edits are safe vs. developer work?
 
-## ➡️ Next — Week 4: [JavaScript & React](../../week4/)
-You've mastered the structure/style/layout of an artifact. **Week 4** brings it to life: **JavaScript**
-(that `<script>` in depth), then **React** components, and finally porting an artifact into a real
-**Vite + TypeScript** project you build and run.
+## ➡️ Next — Week 4: [JavaScript fundamentals](../../week4/)
+You've mastered the structure/style/layout of an artifact. **Week 4** brings it to life: **JavaScript** — that
+`<script>` in depth, from values and arrays to the DOM, events and modules. Then **Week 5** rebuilds this page
+as **React** components in a real **Vite + TypeScript** project you build and ship.
 
 ## 📖 Reference
 - MDN — The document `<head>`: https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML

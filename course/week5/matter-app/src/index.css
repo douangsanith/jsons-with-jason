@@ -15,10 +15,27 @@ body { margin: 0; }
 .wrap h1 { color: #1e3a8a; font-size: 22px; margin-bottom: 4px; }
 .subtitle { color: #6b7280; margin-top: 0; }
 
+/* The controls row — a flexbox row, same as Week 3 Day 3 and Week 4 Day 3. */
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+input[type="search"] {
+  font: inherit;
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  flex: 1;
+}
+
+label { color: #374151; font-size: 14px; }
+
 button {
   font: inherit;
   padding: 6px 12px;
-  margin-bottom: 16px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   background: #fff;
@@ -42,6 +59,7 @@ button:hover { background: #f3f4f6; }
 .card h3 { margin: 0 0 6px 0; color: #1e3a8a; }
 .card p { margin: 2px 0; color: #374151; font-size: 14px; }
 .card .amt { font-weight: 600; }
+.card .lead { color: #6b7280; font-size: 12px; }
 .card .tag {
   display: inline-block;
   background: #eef2ff;
@@ -49,4 +67,15 @@ button:hover { background: #f3f4f6; }
   padding: 2px 8px;
   border-radius: 999px;
   font-size: 12px;
+}
+.card .tag.closed { background: #f3f4f6; color: #6b7280; }
+
+/* States the UI can be in while data is arriving (Day 4). */
+.empty { color: #6b7280; }
+.error {
+  color: #991b1b;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 10px 14px;
 }

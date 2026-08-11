@@ -1,0 +1,6 @@
+{
+  "name": "week4-day4-modules-and-async",
+  "private": true,
+  "type": "module",
+  "//": "This three-line file exists for one reason: \"type\": \"module\" tells Node that the .js files here use import/export. Browsers learn the same thing from <script type=\"module\"> in index.html. No dependencies, so there is nothing to npm install."
+}

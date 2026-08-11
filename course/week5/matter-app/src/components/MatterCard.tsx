@@ -7,6 +7,7 @@ type MatterCardProps = {
 };
 
 // A component is a function that returns JSX (HTML-inside-JavaScript).
+// `{ matter }` in the parameter list is destructuring — Week 4 Day 4.
 // `{matter.client}` drops a JS value into the markup with curly braces.
 export function MatterCard({ matter }: MatterCardProps) {
   const amount = matter.billed.toLocaleString("en-US", {
@@ -18,8 +19,17 @@ export function MatterCard({ matter }: MatterCardProps) {
     <div className="card">
       <h3>{matter.id}</h3>
       <p>{matter.client}</p>
-      <p className="tag">{matter.area}</p>
+      <p>
+        <span className="tag">{matter.area}</span>
+      </p>
+      {/* A ternary picks both the class and the label — same move as Week 4 Day 3. */}
+      <p>
+        <span className={matter.active ? "tag" : "tag closed"}>
+          {matter.active ? "Active" : "Closed"}
+        </span>
+      </p>
       <p className="amt">{amount}</p>
+      <p className="lead">{matter.lead}</p>
     </div>
   );
 }

@@ -14,8 +14,8 @@ Training/
     week1/                            ← Week 1 sessions (Python foundations, ending in NumPy)
     week2/                            ← Week 2 sessions (pandas deep-dive → Polars)
     week3/                            ← Week 3 sessions (HTML & CSS — reading Claude's markup)
-    week4/                            ← Week 4 sessions (JavaScript & React → Vite + TypeScript) [planned]
-    week5/                            ← Week 5 sessions (bridge: JSON, HTTP & wiring a UI to data) [planned]
+    week4/                            ← Week 4 sessions (JavaScript fundamentals: values → arrays → DOM → modules/async, + TypeScript twins)
+    week5/                            ← Week 5 sessions (React + Vite + TypeScript, ending in JSON over HTTP)
     week6/                            ← Week 6 sessions (SQL, run the Snowflake way: SELECT → GROUP BY → JOIN → SQL+Python)
     week7/                            ← Week 7 sessions (Snowflake basics: build/load tables → window functions → Cortex)
     …                                 ← the week counter never restarts (dbt begins Week 8)
@@ -35,9 +35,9 @@ Sessions run in short **~30-minute blocks, Mon · Tue · Thu · Fri** (4 per wee
 `W{week}D{day}_{topic}.ipynb` (day: Mon=1, Tue=2, Thu=3, Fri=4).
 
 > *Note:* all weeks live under `course/` (`course/week1/` … `course/week7/`) — every week sits in one place.
-> **Built so far:** Weeks 1–2 (Python notebooks), Weeks 3–4 (web track — **real `.html`/`.css`/`.tsx` files +
-> a runnable Vite project**, not notebooks), and Weeks 6–7 (SQL/Snowflake notebooks). Week 5 (JSON/HTTP) and
-> Week 8 (dbt) are planned. See `course/README.md`.
+> **Built so far:** Weeks 1–2 (Python notebooks), Weeks 3–5 (web track — **real `.html`/`.css`/`.js`/`.tsx`
+> files + a runnable Vite project**, not notebooks), and Weeks 6–7 (SQL/Snowflake notebooks). Only Week 8 (dbt)
+> is still planned. See `course/README.md`.
 
 ## Getting started (once)
 
@@ -74,8 +74,8 @@ Cowork will produce the next notebook in `notebooks/`, following the same format
 
 - **M0 · Orientation** — what LLMs are, the toolkit, environment setup
 - **M1 · Python foundations** — variables, lists/dicts, functions, NumPy, then pandas + Polars *(Course Weeks 1–2)*
-- **M6 · Web UI** — HTML/CSS → JavaScript/React → **Vite + TypeScript**, taught *reading-first* from real Claude artifacts so the team can productionize the HTML/JSX/TSX Claude produces *(Course Weeks 3–4)*
-- **M1c · Web-data bridge** — JSON, HTTP, and the request/response model; wiring a UI to real data *(Course Week 5)*
+- **M6 · Web UI** — HTML/CSS → JavaScript → React + **Vite + TypeScript**, taught *reading-first* from real Claude artifacts so the team can productionize the HTML/JSX/TSX Claude produces *(Course Weeks 3–5)*
+- **M1c · Web-data bridge** — JSON, HTTP, and the request/response model; wiring a UI to real data *(Course Week 5, Day 4 — the hinge into the data half of the course)*
 - **M1b · SQL foundations** — `SELECT / WHERE / ORDER BY / GROUP BY / JOIN`, taught *the Snowflake way* against a `coffee_orders`/`matters` table with a **DuckDB** offline fallback *(Course Week 6)*
 - **M4 · Data & Snowflake** — build/load tables, window functions, and Cortex LLM functions (summarize/classify in-warehouse) *(Course Week 7; dbt intro in Week 8)*
 - **M2 · Building with Claude** — the messages API, prompting, structured output, evaluation *(Lesson 1 is here; `L00_numpy-for-embeddings` is the NumPy→embeddings on-ramp that precedes it)*

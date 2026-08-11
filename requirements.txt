@@ -7,14 +7,15 @@ pandas>=2.0              # tabular legal data
 polars>=1.0             # fast DataFrames (Week 2 pandas->polars lesson)
 pyarrow>=15.0           # zero-copy pandas <-> polars conversion
 
-# --- Weeks 3-4 · SQL + Snowflake ---
+# --- Weeks 6-7 · SQL + Snowflake ---
+# (Weeks 3-5 are the web track — HTML/CSS, JavaScript, React. No Python needed for those.)
 duckdb>=1.0              # local Snowflake-like SQL engine; offline fallback for every SQL lesson
-matplotlib>=3.8          # charts in the SQL->Python lesson (W3D4)
+matplotlib>=3.8          # charts in the SQL->Python lesson (W6D4)
 
 # Added in later modules (uncomment as you reach them):
 # --- M4 Snowflake (real account; the lessons run on DuckDB until you add this) ---
 # snowflake-connector-python>=3.0
-# snowflake-snowpark-python>=1.20   # (W4D4 Cortex, optional)
+# snowflake-snowpark-python>=1.20   # (W7D4 Cortex, optional)
 # --- M5 Backend ---
 # fastapi>=0.110
 # uvicorn>=0.29

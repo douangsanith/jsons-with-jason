@@ -1,18 +1,18 @@
-# Course foundations — Weeks 1–4 — for the Legal Innovation Team
+# Course foundations — for the Legal Innovation Team
 
-These weeks build the **data-focused fundamentals** the team needs before we wire matters into
-Claude: **Python** (Weeks 1–2), then **SQL + Snowflake** (Weeks 3–4). Every lesson ends with a small
-working artifact. Concepts are taught on relatable everyday data (a coffee shop's orders) and then tied
-back to **legal-domain data** (matters, clients, billings) — the *Matter Intelligence* capstone we're
-building toward.
+These weeks build the fundamentals the team needs before we wire matters into Claude: **Python**
+(Weeks 1–2), the **web track** (Weeks 3–5: HTML/CSS → JavaScript → React), then **SQL + Snowflake**
+(Weeks 6–7). Every lesson ends with a small working artifact. Concepts are taught on relatable everyday data
+(a coffee shop's orders) and then tied back to **legal-domain data** (matters, clients, billings) — the
+*Matter Intelligence* capstone we're building toward.
 
 ## ⭐ Course structure — continuous weeks (not by topic)
 
 The whole course runs as **one continuous sequence of weeks — Week 1, Week 2, Week 3, …** The week
 count **never restarts when the topic changes.** A new subject (SQL, Claude, FastAPI…) picks up at the
 **current course week**, not a fresh "Week 1" — so, for example, there is **no "SQL Week 1"; SQL just
-begins at whatever week we've reached.** Weeks 1–2 are Python, Weeks 3–4 are SQL + Snowflake — all under
-`course/`, one folder per week.
+begins at whatever week we've reached.** Weeks 1–2 are Python, Weeks 3–5 are the web track, Weeks 6–7 are
+SQL + Snowflake — all under `course/`, one folder per week.
 
 ## Teaching cadence
 
@@ -44,10 +44,17 @@ Training/course/
     02-css-basics/            (README.md + index.html + styles.css)
     03-flexbox-and-grid/      (README.md + index.html + styles.css)
     04-anatomy-of-an-artifact/(README.md + matter-intelligence.html)
-  week4/   ← JavaScript & React — real files + a runnable Vite + TS project
-    01-javascript/            (README.md + matters.js + events.html)
-    matter-app/               (Vite + React + TypeScript project; Days 2–4)
-  week5/   ← bridge: JSON, HTTP & wiring a UI to data                    [planned]
+  week4/   ← JavaScript fundamentals — real files you run with node or a browser
+    01-values-and-functions/  (README.md + matters.js + matters.ts)
+    02-arrays-and-objects/    (README.md + matters-report.js + matters-report.ts)
+    03-dom-and-events/        (README.md + dashboard.html/.js + events.html)
+    04-modules-and-async/     (README.md + main.js + matters-data.js + format.js + main.ts + types.ts)
+  week5/   ← React + Vite + TypeScript — four lessons over one runnable project
+    01-react-and-jsx/         (README.md + annotated .tsx reading copies)
+    02-state-and-events/      (README.md + annotated .tsx reading copies)
+    03-typescript-and-vite/   (README.md + annotated .ts reading copy)
+    04-data-over-http/        (README.md + annotated .tsx reading copy)
+    matter-app/               (Vite + React + TypeScript project; all four days)
   week6/   ← W6D1..W6D4   (SQL, run the Snowflake way)
     W6D1_sql-select-the-snowflake-way.ipynb
     W6D2_group-by-and-aggregates.ipynb
@@ -61,12 +68,14 @@ Training/course/
   week8/   ← W8D1..       (dbt — transformation layer)                   [planned]
 ```
 
-> **Sequencing note (updated 2026-07-30).** The web track (**HTML/CSS → JavaScript/React**) was moved
-> *ahead* of SQL/Snowflake so the team can read and productionize the **HTML/JSX/TSX** that Claude
-> produces. Order: **W3 HTML/CSS → W4 JS/React → W5 JSON/HTTP bridge → W6 SQL → W7 Snowflake**. The
-> JSON/HTTP bridge sits at **Week 5**, right where a built UI needs to talk to real data — the hinge
-> between the frontend (W3–4) and the data/backend half (W6–7, and FastAPI later). SQL/Snowflake shifted
-> from Weeks 3–4 to **Weeks 6–7**. Week counter stays continuous.
+> **Sequencing note (updated 2026-08-10).** The web track (**HTML/CSS → JavaScript → React**) sits *ahead* of
+> SQL/Snowflake so the team can read and productionize the **HTML/JSX/TSX** that Claude produces. Order:
+> **W3 HTML/CSS → W4 JavaScript → W5 React → W6 SQL → W7 Snowflake**. JavaScript and React were originally
+> compressed into a single Week 4 (one day of JS, three of React); each now has a **full week**, because that
+> pace was unworkable for a team new to code. The standalone **JSON/HTTP bridge week was folded into W5 Day 4**,
+> where a built UI actually needs to talk to real data — the hinge between the frontend (W3–5) and the
+> data/backend half (W6–7, and FastAPI later). SQL/Snowflake stay at **Weeks 6–7**; nothing was renumbered.
+> Week counter stays continuous.
 
 Sample data lives in `../data/` — synthetic only, never real client data. Two families:
 `matters.csv` (the legal capstone data) and the coffee-shop set used to *teach* from Week 1 Day 4 on
@@ -127,43 +136,57 @@ Claude HTML artifact and learn the language by understanding and modifying it. E
 | **Thu** | `03-flexbox-and-grid/` | flex/grid, responsive layout | a responsive card dashboard |
 | **Fri** | `04-anatomy-of-an-artifact/` | inline CSS/JS, `<script>`, data URIs — what's safe to change | a self-contained artifact + edit playbook |
 
-## Week 4 — JavaScript & React → Vite + TypeScript
+## Week 4 — JavaScript fundamentals
 
-**Real files + a runnable Vite project** ([`week4/`](week4/)). From "make a page do something" to **porting a
-Claude artifact into a real, buildable project** — `.html`/`.jsx` output to production `.tsx`.
+**Real files you run with `node` or a browser** ([`week4/`](week4/)). The third language of the web: HTML is
+structure, CSS is look, **JavaScript is behavior**. Taught in four steps, each one a prerequisite for React.
 
-| Day | Where | Concepts | Ships |
+| Day | Folder | Concepts | Ships |
 |---|---|---|---|
-| **Mon** | `01-javascript/` | variables, arrow functions, arrays, `map`/`filter`/`reduce`, DOM events | `node matters.js`; interactive `events.html` |
-| **Tue** | `matter-app/` | React & JSX — components, `props`, `useState`, reading Claude's JSX | run the app with `npm run dev` |
-| **Thu** | `matter-app/` | Vite + TypeScript — tooling and the `Matter` type | a type-safe project |
-| **Fri** | `matter-app/` | render from `matters.json`, `npm run build` + preview | a production build of the tool |
+| **Mon** | `01-values-and-functions/` | `const`/`let` (and why not `var`), data types, template literals, objects, functions, arrow functions, ternaries | `node matters.js` — a matter summary line |
+| **Tue** | `02-arrays-and-objects/` | arrays of objects, `filter`/`map`/`reduce`, `sort`, chaining, group-by via `reduce` | `node matters-report.js` — a billing report |
+| **Thu** | `03-dom-and-events/` | the DOM, `getElementById`, `addEventListener`, the `render()` pattern | an **interactive** matters dashboard (vanilla JS) |
+| **Fri** | `04-modules-and-async/` | `import`/`export`, destructuring, spread, `?.`/`??`, Promises, `async`/`await`, `try`/`catch` | a modular script fed by a fake async API |
 
-*(Days 2–4 all build up **one** Vite + React + TS project, `matter-app/`. Real network calls are deferred to
-Week 5 — the component renders imported JSON first, the standard React teaching order.)*
+*(Day 3 is the payoff: Week 3's static card grid becomes a live dashboard that filters as you type. Day 4 is
+deliberately "the JavaScript React is written in" — every construct reappears on Week 5 Day 1.)*
 
-## Week 5 — Bridge: JSON, HTTP & wiring a UI to data  *(planned)*
+**TypeScript is introduced here, not in Week 5.** Days 1, 2 and 4 each ship a `.ts` twin of the day's script —
+the same program with annotations, a shared `types.ts`, and `Promise<Matter[]>`. They run with plain
+`node matters.ts` on **Node 22.18+** (Node strips types and runs; it does not check them — the editor does that,
+and Week 5's `npm run build` enforces it). Day 3 is deliberately excluded: typing raw DOM lookups needs a cast on
+every `getElementById`, which is noise when the subject is events. The payoff is that Week 5 Day 3 can teach
+typed **props** and the build gate instead of re-explaining what a type is.
 
-The hinge between the two halves: your UI can render data (W3–4) and soon you'll query a warehouse (W6–7) —
-**JSON over HTTP is how they talk.** Also the on-ramp to the FastAPI backend later.
+## Week 5 — React + Vite + TypeScript
 
-| Day | Session | Concepts | Ships |
+**Four lessons over one runnable Vite project** ([`week5/`](week5/)). Where the team stops reading code and starts
+shipping it: `.html`/`.jsx` output becomes a typed, buildable, deployable `.tsx` application.
+
+| Day | Folder | Concepts | Ships |
 |---|---|---|---|
-| **Mon** | JSON — the lingua franca | `dict` ↔ JSON, the `json` module, nested data | a matter record as JSON |
-| **Tue** | HTTP & the request/response model | URLs, methods, status codes, headers | the anatomy of a request |
-| **Thu** | `fetch` from an API | JS `fetch`, `httpx` in Python, query params, parsing JSON (mock offline) | a UI that pulls live JSON |
-| **Fri** | End-to-end: UI ↔ data | serialize a DataFrame → JSON → render it in the Week-4 component | the tool wired to real data |
+| **Mon** | `01-react-and-jsx/` | components, JSX, `className`, props, `key`, `map` → UI | the app running under `npm run dev` |
+| **Tue** | `02-state-and-events/` | `useState`, `onChange`/`onClick`, controlled inputs, derived vs. state, conditional rendering | a searchable, filterable dashboard |
+| **Thu** | `03-typescript-and-vite/` | typed props, what Vite does, breaking the build on purpose *(types themselves were taught in W4)* | a type-safe project |
+| **Fri** | `04-data-over-http/` | JSON, request/response & status codes, `useEffect` + `fetch`, loading/error states, `npm run build` + `preview` | the app fed by a real HTTP request |
+
+*(All four days build up **one** project, `matter-app/`. Each day folder holds the lesson plus **annotated
+reading copies** of the files at that day's complexity; the committed project is in its finished Friday state.
+The planned standalone JSON/HTTP bridge week is folded into **Day 4**, where the UI actually needs it.)*
 
 **Design notes for the web weeks (3–5)**
 - **Real files, not notebooks.** The web track is `.html`/`.css`/`.js`/`.tsx` files + a `README.md` lesson per
   topic — you open pages in a browser and run the project with npm/Vite, exactly as you would in production.
 - **Reading-first, artifact-driven.** Every lesson starts from a real Claude artifact — the goal is to
   *understand and productionize the code Claude writes*, so the team can take an artifact to prod.
-- **Mostly zero-setup; one `npm install`.** Week 3 (HTML/CSS) needs only a browser. Week 4 Day 1 needs Node to
-  run `matters.js`; Days 2–4 need Node + a one-time `npm install` in `matter-app/` (the one internet-connected
-  step). The committed Vite project is verified to build (`npm run build`).
-- **JSON/HTTP is the bridge, not a prerequisite.** Week 4 renders static/local JSON; Week 5 adds real
-  `fetch`/HTTP and connects the UI to data — which sets up SQL/Snowflake (W6–7) and FastAPI.
+- **Clean + annotated twins.** Every code file ships as `name.ext` (build with it) and `name.annotated.ext`
+  (learn from it — a plain-English comment on nearly every line). Both produce identical output.
+- **Mostly zero-setup; one `npm install`.** Week 3 needs only a browser. Week 4 needs Node (and `python3 -m
+  http.server` for Day 4's ES modules). Week 5 needs Node + a one-time `npm install` in `matter-app/` — the one
+  internet-connected step in the course. The committed Vite project is verified to build (`npm run build`).
+- **Even the `fetch` runs offline.** `matter-app/public/matters.json` is served at `/matters.json` by Vite in
+  both dev and the production build, so Week 5 Day 4 teaches a genuine HTTP request with no backend and no
+  internet — and the same component works unchanged against FastAPI or Snowflake later.
 - **Legal tie-in.** The UI surfaces `matters` / *Matter Intelligence* data, keeping the capstone through-line.
 
 ## Week 6 — SQL, run the Snowflake way

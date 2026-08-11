@@ -50,7 +50,7 @@ you watch the old `float` problem break and get fixed in the browser.
    then the data (`<table>`/`<ul>`), then the hooks (`id`/`class`) you'll style or wire up.
 2. **The modification playbook** (Lesson 4): text & data are ✅ safe to change yourself; colors/layout are
    ⚠️ careful; program logic (`<script>`) and APIs are 🧑‍💻 developer territory — which is exactly where
-   **Week 4 (JavaScript & React)** picks up.
+   **Week 4 (JavaScript)** picks up, before **Week 5** rebuilds the page in React.
 
 > Synthetic data only — never put real client or privileged data in a teaching file.
 > Not legal advice — a lawyer reviews any AI output that will be relied upon.

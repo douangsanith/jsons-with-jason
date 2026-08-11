@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modules & async — matters</title>
+  <style>
+    body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; color: #111827; background: #f6f7f9; margin: 0; }
+    .wrap { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    h1 { color: #1e3a8a; font-size: 22px; margin-bottom: 4px; }
+    .subtitle { color: #6b7280; margin-top: 0; }
+    pre {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Modules &amp; async</h1>
+    <p class="subtitle">
+      The output of <code>main.js</code> — the same lines you get from <code>node main.js</code>.
+      Watch the <em>fetching…</em> line appear before the results.
+    </p>
+    <pre id="out"></pre>
+  </div>
+
+  <!-- A plain script runs immediately; module scripts wait until the page is parsed.
+       So this shim is in place before main.js logs anything. It just mirrors
+       console.log onto the page, so you don't have to open DevTools. -->
+  <script>
+    const outEl = document.getElementById("out");
+    const original = console.log;
+    console.log = (...args) => {
+      original(...args);
+      outEl.textContent += args.join(" ") + "\n";
+    };
+  </script>
+
+  <!-- type="module" is what enables import/export in the browser.
+       It also means this file must be served over http:// — see the lesson. -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>
