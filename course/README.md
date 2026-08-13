@@ -144,7 +144,7 @@ structure, CSS is look, **JavaScript is behavior**. Taught in four steps, each o
 | Day | Folder | Concepts | Ships |
 |---|---|---|---|
 | **Mon** | `01-values-and-functions/` | `const`/`let` (and why not `var`), data types, template literals, objects, functions, arrow functions, ternaries | `node matters.js` — a matter summary line |
-| **Tue** | `02-arrays-and-objects/` | arrays of objects, `filter`/`map`/`reduce`, `sort`, chaining, group-by via `reduce` | `node matters-report.js` — a billing report |
+| **Tue** | `02-arrays-and-objects/` | arrays of objects, `filter`/`map`/`reduce`, `sort`, chaining, group-by via `reduce`, `for...of`/`while` | `node matters-report.js` — a billing report |
 | **Thu** | `03-dom-and-events/` | the DOM, `getElementById`, `addEventListener`, the `render()` pattern | an **interactive** matters dashboard (vanilla JS) |
 | **Fri** | `04-modules-and-async/` | `import`/`export`, destructuring, spread, `?.`/`??`, Promises, `async`/`await`, `try`/`catch` | a modular script fed by a fake async API |
 
@@ -168,7 +168,7 @@ shipping it: `.html`/`.jsx` output becomes a typed, buildable, deployable `.tsx`
 | **Mon** | `01-react-and-jsx/` | components, JSX, `className`, props, `key`, `map` → UI | the app running under `npm run dev` |
 | **Tue** | `02-state-and-events/` | `useState`, `onChange`/`onClick`, controlled inputs, derived vs. state, conditional rendering | a searchable, filterable dashboard |
 | **Thu** | `03-typescript-and-vite/` | typed props, what Vite does, breaking the build on purpose *(types themselves were taught in W4)* | a type-safe project |
-| **Fri** | `04-data-over-http/` | JSON, request/response & status codes, `useEffect` + `fetch`, loading/error states, `npm run build` + `preview` | the app fed by a real HTTP request |
+| **Fri** | `04-data-over-http/` | JSON, request/response & status codes, `useEffect` + `fetch`, loading/error states, pagination with `while`, `npm run build` + `preview` | the app fed by a real HTTP request |
 
 *(All four days build up **one** project, `matter-app/`. Each day folder holds the lesson plus **annotated
 reading copies** of the files at that day's complexity; the committed project is in its finished Friday state.
