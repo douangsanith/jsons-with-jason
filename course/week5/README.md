@@ -33,7 +33,7 @@ Leave `npm run dev` running all week — every file you save appears in the brow
 | **Mon** | [`01-react-and-jsx/`](01-react-and-jsx/) | components, JSX, `className`, props, `key`, `map` → UI | the app running on your machine |
 | **Tue** | [`02-state-and-events/`](02-state-and-events/) | `useState`, `onChange`, controlled inputs, conditional rendering | a searchable, filterable dashboard |
 | **Thu** | [`03-typescript-and-vite/`](03-typescript-and-vite/) | the `Matter` type, typed props, what Vite does, breaking the build | a type-safe project |
-| **Fri** | [`04-data-over-http/`](04-data-over-http/) | JSON, request/response, `useEffect` + `fetch`, loading & error states | the app fed by a real HTTP request |
+| **Fri** | [`04-data-over-http/`](04-data-over-http/) | JSON, request/response, `useEffect` + `fetch`, loading & error states, pagination | the app fed by a real HTTP request |
 
 Each day folder holds that day's `README.md` (the lesson) plus **annotated reading copies** of the files it
 teaches — the project at *that day's* level of complexity, with a comment on nearly every line. The live

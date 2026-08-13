@@ -26,6 +26,7 @@ error states — and a **production build** you could actually deploy.
 - Describe the **request/response** model: URL, method, status code, body.
 - Fetch data in React with **`useEffect`** + **`fetch`**, and explain the **dependency array**.
 - Handle the three states every real UI has: **loading**, **error**, **data**.
+- Drain a **paginated** API with a `while` loop, and know why `map` can't do it.
 - Produce a **production build** and serve it.
 
 ## ⚖️ Why it matters
@@ -152,7 +153,64 @@ the request succeeded or failed.
 > React runs it if the component disappears before the response arrives, so the handlers know not to set state on
 > something that's gone. Harmless here; essential in an app where views come and go.
 
-## 6 · Why this works offline
+## 6 · When one request isn't enough — `while` and pagination
+
+One `fetch`, one array. For a file that's the whole truth, and `matter-app` never does more. Real APIs are
+different: ask for 5,000 matters and you get the first 50 plus a note saying where the rest are. That's
+**pagination**, and it's where [Week 4's `while` loop](../../week4/02-arrays-and-objects/README.md) finally earns
+its keep.
+
+You cannot write this with `map`. `map` has to know how many times it's running before it starts — and here the
+only way to find out whether there's another page is to read the response to the last one.
+
+```ts
+async function loadAllMatters(): Promise<Matter[]> {
+  const all: Matter[] = [];
+  let url: string | null = "/api/matters?page=1";
+
+  while (url) {                                   // ← "keep going while there's a next page"
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const page = await response.json();
+    all.push(...page.results);                    // spread this page into the running list
+    url = page.next;                              // the server hands back the next URL — or null
+  }
+
+  return all;
+}
+```
+
+Read the loop, not the URLs. **The condition is `url` itself.** While the server keeps returning a `next`, round
+you go again; the moment it returns `null`, `while (null)` is false and you drop out holding everything. That is
+the entire pattern, it's the same shape in Python (`while url:`), and it's how Jira's API, Snowflake's REST API
+and the Claude API's own list endpoints all work.
+
+It then drops into the effect unchanged:
+
+```tsx
+const data = await loadAllMatters();
+if (!cancelled) setMatters(data);
+```
+
+`useEffect` never knows the difference — the `await` covers all three round trips, so it's still one spinner and
+one `setLoading(false)` in the `finally`. **This is the shape to recognise the first time you point that `fetch`
+at a real endpoint**, and the first thing to check for when an API mysteriously returns exactly 50 rows.
+
+> **Common pitfalls ⚠️** — **always give a paginated loop a ceiling.** If the server has a bug and page 3's `next`
+> points back at page 2, `while (url)` fetches forever:
+> ```ts
+> let pages = 0;
+> while (url && pages < 50) { …; pages++; }
+> ```
+> Same discipline as Week 4's infinite loop, except the runaway is now making network requests. If your Network
+> tab is scrolling and won't stop, it's either this or a missing dependency array.
+
+> **Go Deeper 🔧** — that `while` is **sequential by necessity**: you can't request page 2 until page 1 admits it
+> exists. But some APIs tell you the total up front (`{ count: 340, pageSize: 50 }`) — then you can work out every
+> page number without asking, and it becomes `Promise.all` over a `map`, firing all seven requests at once instead
+> of waiting for each in turn. **Sequential when each step depends on the last; parallel when they don't.**
+
+## 7 · Why this works offline
 
 `matters.json` lives in **`public/`**, and Vite serves that folder at the site root — in `npm run dev` *and* in
 the `dist/` you deploy. So `fetch("/matters.json")` is a real HTTP request to a real local server, with no
@@ -186,6 +244,10 @@ artifact all the way to a deployable application.**
 5. Add a **Refresh** button that re-runs the load. (Hint: lift `load` out of the effect, or add a `reloadCount`
    state to the dependency array.)
 6. Run `npm run build && npm run preview` and confirm the production build fetches too.
+7. In the browser console, paste the fake paginated server below and drain it with a `while` loop, logging each
+   page as it arrives. No network needed — it's the same loop shape against a local function.
+8. **Add the `pages < 50` ceiling first**, then break the server: make `next` always return the same page. Confirm
+   the loop stops at 50 instead of hanging the tab. (Do these in that order.)
 
 <details><summary>✅ What it should look like</summary>
 
@@ -215,8 +277,32 @@ useEffect(() => {
 
 <button onClick={() => setReloadCount((n) => n + 1)}>Refresh</button>
 ```
+```js
+// 7 — a fake paginated server, 2 rows per page, no network involved
+const ALL = ["M-1001", "M-1002", "M-1003", "M-1004", "M-1005"];
+function getPage(page) {
+  const start = (page - 1) * 2;
+  const results = ALL.slice(start, start + 2);
+  return { results, next: start + 2 < ALL.length ? page + 1 : null };
+}
+
+const all = [];
+let next = 1;
+let pages = 0;
+while (next && pages < 50) {          // ← the ceiling from §6
+  const page = getPage(next);
+  all.push(...page.results);
+  console.log(`page ${next}:`, page.results, `— running total ${all.length}`);
+  next = page.next;
+  pages++;
+}
+console.log(all);                     // all 5, in order, after 3 rounds
+```
 In (3) you'll see something like `Unexpected token '<' … is not valid JSON` — the server returned an HTML error
 page and `.json()` choked on it. That confusing message is exactly what the `response.ok` check prevents.
+
+In (8), `next: page` instead of `page + 1` means the condition never goes false. With the ceiling in place you get
+50 identical pages and a prompt back; without it, that tab is gone. That's the whole argument for the ceiling.
 </details>
 
 ## 📝 Recap
@@ -225,6 +311,8 @@ page and `.json()` choked on it. That confusing message is exactly what the `res
 - **`useEffect`** holds side effects; the **dependency array** decides how often it runs, and `[]` means once.
 - **`fetch` doesn't throw on 404** — check `response.ok` yourself.
 - Model **loading / error / data**; start arrays as `[]`, and stop the spinner in `finally`.
+- **Paginated APIs need a `while` loop** — `map` can't, because the page count isn't known up front. Give it a
+  ceiling so a bad `next` can't loop forever.
 - **`npm run build`** produces a deployable `dist/`; `npm run preview` serves it.
 
 ## 🧠 Check yourself
@@ -234,6 +322,10 @@ page and `.json()` choked on it. That confusing message is exactly what the `res
    be made; a 404 is a successful promise carrying a failure)*
 3. Why start `matters` as `[]` rather than `null`? *(the `.filter` chain runs on the first render, before any
    data — `[]` is safe, `null` crashes)*
+4. Why can't you replace the pagination `while` with a `map`? *(`map` needs the number of items before it starts;
+   here you only learn there's a next page by reading the previous response)*
+5. What stops a paginated loop when the server's `next` is broken? *(nothing, unless you add a page ceiling —
+   `while (url && pages < 50)`)*
 
 ## ➡️ Next — [Week 6: SQL, run the Snowflake way](../../week6/)
 You've built the front half of *Matter Intelligence*: a real, typed, deployable UI that reads its data over HTTP.

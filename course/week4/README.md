@@ -11,7 +11,7 @@ filtering as you type — and toward Week 5, where React takes over the tedious 
 | Day | Folder | Topic | You'll build |
 |---|---|---|---|
 | **Mon** | [`01-values-and-functions/`](01-values-and-functions/) | `const`/`let`, types, objects, functions, arrow functions | `node matters.js` — a matter summary line |
-| **Tue** | [`02-arrays-and-objects/`](02-arrays-and-objects/) | arrays of objects, `filter`/`map`/`reduce`, `sort`, chaining | `node matters-report.js` — a billing report |
+| **Tue** | [`02-arrays-and-objects/`](02-arrays-and-objects/) | arrays of objects, `filter`/`map`/`reduce`, `sort`, chaining, loops | `node matters-report.js` — a billing report |
 | **Thu** | [`03-dom-and-events/`](03-dom-and-events/) | the DOM, `getElementById`, `addEventListener`, `render()` | an **interactive** matters dashboard |
 | **Fri** | [`04-modules-and-async/`](04-modules-and-async/) | `import`/`export`, destructuring, spread, `?.`, `async`/`await` | a modular script fed by a fake API |
 
@@ -52,6 +52,79 @@ No installs, no keys, no internet. The one `npm install` in this course arrives 
 - **Browser lessons (Day 3):** double-click the `.html` file, or `open 03-dom-and-events/dashboard.html`.
 - **Day 4 is the exception** — ES modules must be served over HTTP, so run `python3 -m http.server` from that
   folder and visit `http://localhost:8000`. Double-clicking that page will not work, and the lesson explains why.
+- **To poke at any terminal lesson interactively:** run `node` on its own and use `.load` — see
+  [The Node REPL](#the-node-repl--a-scratchpad-for-trying-things) below.
+
+## The Node REPL — a scratchpad for trying things
+
+Run `node` with **no filename** and you get a prompt instead of a program. That prompt is the **REPL**, which
+stands for **Read–Eval–Print Loop** — it *reads* the line you type, *evaluates* it, *prints* the result, and
+*loops* round for the next one. It's the fastest way to answer "what does this actually do?" without editing a
+file and re-running it.
+
+```
+$ node
+Welcome to Node.js v22.23.1.
+> 2 + 2
+4
+> "Acme Corp".toUpperCase()
+'ACME CORP'
+> [10, 20, 30].filter((n) => n > 15)
+[ 20, 30 ]
+```
+
+Notice it prints the **value** of every line, not just what you `console.log`. That's the "Print" in REPL, and
+it's why the REPL is better than a file for poking at a single expression.
+
+### `.load` — pull a lesson file into your session
+
+Lines starting with a dot are commands to the REPL itself, not JavaScript. The useful one here is `.load`:
+
+```
+> .load matters.js
+```
+
+That runs the whole file **in your current session**, so all its output appears *and* every `const` and function
+it defined stays available to play with:
+
+```
+> matter.client
+'Acme Corp'
+> feeNote(2500)
+'$2500.00 billed to date'
+> statusLabel(matter)
+'Active'
+```
+
+This is a genuinely good way to work through Days 1, 2 and 4: `node matters.js` shows you the output, then
+`.load matters.js` lets you take the pieces apart. The commands worth knowing:
+
+| Command | Does |
+|---|---|
+| `.load <file>` | run a `.js` file in this session, keeping its variables |
+| `.editor` | multi-line paste mode — `Ctrl-D` to run, `Ctrl-C` to cancel |
+| `.break` | abandon a half-typed multi-line expression |
+| `.help` | list every dot-command |
+| `.exit` | leave (or `Ctrl-D`, or `Ctrl-C` twice) |
+
+### ⚠️ `.load` does not work on the `.ts` files
+
+```
+> .load matters-report.ts
+Uncaught SyntaxError: Unexpected identifier 'Matter'
+```
+
+Not your mistake — a documented Node limitation. `node matters-report.ts` works because Node's **module loader**
+strips the types out of the file before running it. `.load` bypasses the module loader entirely; it just feeds
+the file's text to the REPL, which only speaks plain JavaScript and trips over the first `: string` it meets.
+[Node's own docs](https://nodejs.org/api/typescript.html) say it plainly: *"TypeScript syntax is unsupported in
+the REPL."*
+
+> **This is worth understanding rather than working around**, because it's the whole point of types in one
+> sentence: **types are a layer that gets removed before any code runs.** The REPL sits underneath that layer.
+> Same reason your browser can't run a `.ts` file either — and the reason Week 5 needs a build step.
+
+To explore a `.ts` file interactively, `.load` its `.js` twin instead — the logic is identical.
 
 ## The through-line
 
