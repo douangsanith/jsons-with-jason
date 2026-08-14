@@ -220,7 +220,7 @@ const byArea = matters.reduce((acc, m) => {
 
 **Round 3 is the one that matters.** Litigation already had a total, so `acc[m.area]` found `42750.5` and added
 `5000` to it. Rounds 1 and 2 had nothing there yet — and reading a key that doesn't exist gives `undefined`, not
-an error (that's [§3b's silent-typo behaviour](#3b--five-differences-that-will-bite-you) working *for* you here).
+an error (that's [§3b's silent-typo behavior](#3b--five-differences-that-will-bite-you) working *for* you here).
 You can't add to `undefined`, so `|| 0` supplies a `0` to start from.
 
 That's all `(acc[m.area] || 0)` is: **"the total so far, or zero if this is the first one."**
