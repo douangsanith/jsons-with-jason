@@ -10,8 +10,6 @@ export type Matter = {
   area: string;
   billed: number;
   active: boolean;
-  // The `?` marks an OPTIONAL field: some matters have a lead, some don't.
-  // TypeScript then insists you handle the missing case — which is exactly what
-  // `?.` and `??` are for.
+  // `?` marks an OPTIONAL field: some matters have a lead, some don't.
   lead?: { name: string; email?: string };
 };

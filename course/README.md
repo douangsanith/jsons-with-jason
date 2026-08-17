@@ -48,7 +48,7 @@ Training/course/
     01-values-and-functions/  (README.md + matters.js + matters.ts)
     02-arrays-and-objects/    (README.md + matters-report.js + matters-report.ts)
     03-dom-and-events/        (README.md + dashboard.html/.js + events.html)
-    04-modules-and-async/     (README.md + main.js + matters-data.js + format.js + main.ts + types.ts)
+    04-modules-and-async/     (README.md + main/matters-data/format as .js AND .ts + types.ts)
   week5/   ← React + Vite + TypeScript — four lessons over one runnable project
     01-react-and-jsx/         (README.md + annotated .tsx reading copies)
     02-state-and-events/      (README.md + annotated .tsx reading copies)
