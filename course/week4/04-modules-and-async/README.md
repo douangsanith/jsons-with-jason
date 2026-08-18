@@ -22,7 +22,11 @@ that hasn't arrived yet.*
 > [`index.annotated.html`](index.annotated.html). They import each other, so you can run the whole annotated set:
 > `node main.annotated.js`, or visit `http://localhost:8000/index.annotated.html`.
 
-> 🧩 **TypeScript twin:** [`main.ts`](main.ts) + [`types.ts`](types.ts) — section 7. Run it with `node main.ts`.
+> 🧩 **TypeScript twin — the same four modules, typed:** [`main.ts`](main.ts), [`matters-data.ts`](matters-data.ts),
+> [`format.ts`](format.ts) and the shared [`types.ts`](types.ts) — section 7. Run it with `node main.ts`. Each has
+> an annotated copy too ([`main.annotated.ts`](main.annotated.ts), [`matters-data.annotated.ts`](matters-data.annotated.ts),
+> [`format.annotated.ts`](format.annotated.ts), [`types.annotated.ts`](types.annotated.ts)), and they import each
+> other, so `node main.annotated.ts` runs the whole annotated set.
 
 ---
 
@@ -196,6 +200,17 @@ import type { Matter } from "./types.ts";
 `import type` brings in a **shape, not a value** — it vanishes entirely at runtime. And that `types.ts` is doing
 precisely the job of Week 5's `matter-app/src/types.ts`. You've just built the pattern the whole React app rests
 on.
+
+The typed side mirrors the JavaScript side file for file — `main.ts` imports from `matters-data.ts` and
+`format.ts` exactly as `main.js` imports from `matters-data.js` and `format.js`. Read any pair side by side and
+every difference between them is an annotation.
+
+> **One line is missing on purpose.** `node main.ts` prints one fewer line than `node main.js`: the
+> `renamed + default: M-1002 (USD)` one. In TypeScript, `const { currency = "USD" } = matters[0]` is an error —
+> *Property 'currency' does not exist on type 'Matter'* — because you can't destructure a key the type says isn't
+> there. JavaScript hands you `undefined` and lets the default hide it. The fix is to add `currency?: string` to
+> the type, not to work around it where it's used: when the type and reality disagree, **the type is the thing to
+> change.**
 
 Two payoffs land today specifically:
 

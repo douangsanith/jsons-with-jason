@@ -17,7 +17,8 @@ groups a list of matters — and a reusable `report()` function.
 > nearly every line, including a step-by-step walk through `reduce`. Both print identical output.
 
 > 🧩 **And a TypeScript twin:** [`matters-report.ts`](matters-report.ts) — the same program with types, for
-> section 8. Run it with `node matters-report.ts`.
+> section 8 — plus [`matters-report.annotated.ts`](matters-report.annotated.ts). Run either with
+> `node matters-report.ts`. All four files print identical output.
 
 ---
 

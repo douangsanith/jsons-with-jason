@@ -18,8 +18,10 @@ summary line — and a `describe()` function you'll reuse all week.
 > line. Read the annotated one to learn; use the clean one to build. Run it the same way:
 > `node matters.annotated.js` — the output is identical.
 
-> 🧩 **There's a third file today:** [`matters.ts`](matters.ts) — the *same program in TypeScript*, for section 6.
-> Run it with `node matters.ts`. Ignore it until you get there.
+> 🧩 **And a TypeScript twin:** [`matters.ts`](matters.ts) — the *same program in TypeScript*, for section 6, with
+> [`matters.annotated.ts`](matters.annotated.ts) alongside it. Run either with `node matters.ts`. All four files
+> print identical output, so the only differences you'll find between the `.js` and the `.ts` are the type
+> annotations themselves. Ignore them until you get to section 6.
 
 ---
 
